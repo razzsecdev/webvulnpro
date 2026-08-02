@@ -1,0 +1,82 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "webvulnpro"
+version = "1.0.0"
+description = "Enterprise Web Vulnerability Assessment Tool"
+readme = "README.md"
+license = {text = "MIT"}
+requires-python = ">=3.9"
+authors = [
+    {name = "WebVulnPro Team", email = "security@webvulnpro.io"}
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Security",
+]
+dependencies = [
+    "aiohttp>=3.9.0",
+    "typer>=0.9.0",
+    "click>=8.0.0",
+    "rich>=13.0.0",
+    "reportlab>=4.0.0",
+    "urllib3>=2.0.0",
+    "certifi>=2023.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "mypy>=1.0.0",
+    "ruff>=0.1.0",
+]
+
+[project.scripts]
+webvulnpro = "webvulnpro.cli:cli_main"
+
+[project.urls]
+Homepage = "https://github.com/razzsecdev/webvulnpro"
+Documentation = "https://github.com/razzsecdev/webvulnpro#readme"
+Repository = "https://github.com/razzsecdev/webvulnpro"
+Issues = "https://github.com/razzsecdev/webvulnpro/issues"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["webvulnpro*"]
+
+[tool.setuptools.package-data]
+webvulnpro = ["wordlists/*.txt", "signatures/*.json"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.black]
+line-length = 100
+target-version = ["py39", "py310", "py311", "py312"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py39"
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+ignore_missing_imports = true

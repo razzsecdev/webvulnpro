@@ -1,0 +1,44 @@
+{
+  "report_info": {
+    "generator": "WebVulnPro",
+    "version": "2.0.0",
+    "generated_at": "2026-07-17T19:58:09.591532",
+    "format": "JSON"
+  },
+  "summary": {
+    "targets_scanned": 1,
+    "total_vulnerabilities": 0,
+    "by_severity": {
+      "CRITICAL": 0,
+      "HIGH": 0,
+      "MEDIUM": 0,
+      "LOW": 0,
+      "INFO": 0
+    },
+    "by_category": {},
+    "risk_score": 0,
+    "technologies": [],
+    "technologies_by_category": {},
+    "generated_at": "2026-07-17T19:58:09.591532"
+  },
+  "scan_results": [
+    {
+      "target": "http://localhost/dvwa",
+      "start_time": "2026-07-17T19:57:57.209824",
+      "end_time": "2026-07-17T19:58:09.574407",
+      "duration_seconds": 12.364583,
+      "risk_score": 0,
+      "vulnerability_counts": {
+        "CRITICAL": 0,
+        "HIGH": 0,
+        "MEDIUM": 0,
+        "LOW": 0,
+        "INFO": 0
+      },
+      "vulnerabilities": [],
+      "technologies": [],
+      "status_code": null,
+      "error": "Connection error: Cannot connect to host localhost:80 ssl:default [The remote computer refused the network connection]"
+    }
+  ]
+}

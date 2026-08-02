@@ -1,0 +1,347 @@
+{
+  "version": "1.0.0",
+  "description": "WebVulnPro Vulnerability Signatures Database",
+  "sql_errors": {
+    "MySQL": [
+      "SQL syntax.*MySQL",
+      "Warning.*mysql_",
+      "MySqlException",
+      "valid MySQL result",
+      "check the manual that corresponds to your MySQL server version",
+      "MySqlClient\\.",
+      "com\\.mysql\\.jdbc",
+      "MySQL server version for the right syntax",
+      "You have an error in your SQL syntax",
+      "supplied argument is not a valid MySQL",
+      "Column count doesn't match value count"
+    ],
+    "PostgreSQL": [
+      "PostgreSQL.*ERROR",
+      "Warning.*pg_",
+      "valid PostgreSQL result",
+      "Npgsql\\.",
+      "PG::SyntaxError:",
+      "org\\.postgresql\\.util\\.PSQLException",
+      "ERROR:\\s*syntax error at or near",
+      "unterminated quoted string",
+      "invalid input syntax for"
+    ],
+    "MSSQL": [
+      "Driver.*SQL[\\-\\_\\ ]*Server",
+      "OLE DB.*SQL Server",
+      "SQLServer JDBC Driver",
+      "SqlClient\\.",
+      "macromedia\\.jdbc\\.sqlserver",
+      "\\bSQL Server\\b.*Driver",
+      "Warning.*mssql_",
+      "Unclosed quotation mark after the character string",
+      "Microsoft OLE DB Provider for ODBC Drivers",
+      "Incorrect syntax near",
+      "Arithmetic overflow error"
+    ],
+    "Oracle": [
+      "\\bORA-\\d{5}",
+      "Oracle error",
+      "Oracle.*Driver",
+      "Warning.*oci_",
+      "Warning.*ora_",
+      "oracle\\.jdbc",
+      "PLS-\\d{5}",
+      "TNS-\\d{5}"
+    ],
+    "SQLite": [
+      "SQLite/JDBCDriver",
+      "SQLite\\.Exception",
+      "System\\.Data\\.SQLite\\.SQLiteException",
+      "Warning.*sqlite_",
+      "sqlite3\\.OperationalError:",
+      "SQLite3::SQLException",
+      "SQLITE_ERROR",
+      "unrecognized token"
+    ],
+    "MongoDB": [
+      "MongoError",
+      "MongoDB.*Error",
+      "\\$where",
+      "\\$ne",
+      "\\$gt"
+    ]
+  },
+  "xss_patterns": {
+    "reflection_indicators": [
+      "<script",
+      "javascript:",
+      "onerror=",
+      "onload=",
+      "onclick=",
+      "onmouseover=",
+      "<img.*src.*=",
+      "<svg.*onload",
+      "<iframe",
+      "expression\\("
+    ],
+    "dangerous_sinks": [
+      "document\\.write",
+      "innerHTML",
+      "outerHTML",
+      "eval\\(",
+      "setTimeout\\(",
+      "setInterval\\(",
+      "Function\\(",
+      "\\.html\\("
+    ]
+  },
+  "path_traversal": {
+    "patterns": [
+      "\\.\\./",
+      "\\.\\.\\\\",
+      "%2e%2e%2f",
+      "%2e%2e/",
+      "..%2f",
+      "%2e%2e%5c",
+      "..%5c"
+    ],
+    "sensitive_files": [
+      "/etc/passwd",
+      "/etc/shadow",
+      "/etc/hosts",
+      "C:\\\\Windows\\\\win.ini",
+      "C:\\\\boot.ini"
+    ]
+  },
+  "open_redirect": {
+    "parameter_names": [
+      "url",
+      "redirect",
+      "next",
+      "return",
+      "returnUrl",
+      "returnTo",
+      "redir",
+      "destination",
+      "dest",
+      "go",
+      "target",
+      "link",
+      "out",
+      "continue",
+      "forward",
+      "redirect_uri",
+      "callback"
+    ],
+    "bypass_patterns": [
+      "//evil.com",
+      "///evil.com",
+      "\\\\evil.com",
+      "/\\evil.com",
+      "https:evil.com",
+      "//evil%2ecom"
+    ]
+  },
+  "ssrf": {
+    "parameter_names": [
+      "url",
+      "uri",
+      "path",
+      "src",
+      "dest",
+      "redirect",
+      "uri",
+      "link",
+      "file",
+      "page",
+      "document",
+      "folder",
+      "root",
+      "image"
+    ],
+    "internal_patterns": [
+      "127\\.0\\.0\\.1",
+      "localhost",
+      "0\\.0\\.0\\.0",
+      "10\\.\\d+\\.\\d+\\.\\d+",
+      "172\\.(?:1[6-9]|2\\d|3[01])\\.\\d+\\.\\d+",
+      "192\\.168\\.\\d+\\.\\d+",
+      "169\\.254\\.\\d+\\.\\d+",
+      "::1",
+      "fc00::",
+      "fe80::"
+    ]
+  },
+  "command_injection": {
+    "patterns": [
+      ";",
+      "|",
+      "&",
+      "\\$\\(",
+      "`",
+      "||",
+      "&&",
+      "\\n",
+      "\\r"
+    ],
+    "sensitive_commands": [
+      "cat /etc/passwd",
+      "whoami",
+      "id",
+      "uname -a",
+      "ls -la",
+      "dir",
+      "ping",
+      "nslookup"
+    ]
+  },
+  "technologies": {
+    "cms": {
+      "WordPress": {
+        "paths": ["/wp-login.php", "/wp-admin/", "/xmlrpc.php", "/wp-content/"],
+        "headers": ["x-powered-by: WPE"],
+        "body_patterns": ["wp-content", "wp-includes", "wordpress"]
+      },
+      "Drupal": {
+        "paths": ["/core/misc/drupal.js", "/user/login", "/admin/structure"],
+        "headers": ["x-drupal-cache", "x-generator: Drupal"],
+        "body_patterns": ["Drupal.settings", "sites/default/files"]
+      },
+      "Joomla": {
+        "paths": ["/administrator/", "/components/", "/modules/"],
+        "headers": [],
+        "body_patterns": ["/media/jui/", "joomla"]
+      },
+      "Magento": {
+        "paths": ["/downloader/", "/admin/", "/app/etc/"],
+        "headers": [],
+        "body_patterns": ["Mage.Cookies", "/skin/frontend/"]
+      }
+    },
+    "frameworks": {
+      "Laravel": {
+        "cookies": ["laravel_session", "XSRF-TOKEN"],
+        "body_patterns": ["csrf-token"]
+      },
+      "Django": {
+        "cookies": ["csrftoken", "sessionid"],
+        "body_patterns": ["csrfmiddlewaretoken"]
+      },
+      "Rails": {
+        "cookies": ["_session_id"],
+        "body_patterns": ["authenticity_token", "rails-ujs"]
+      },
+      "ASP.NET": {
+        "headers": ["x-aspnet-version", "x-powered-by: ASP.NET"],
+        "cookies": ["ASP.NET_SessionId"],
+        "body_patterns": ["__VIEWSTATE", "__EVENTVALIDATION"]
+      },
+      "Spring": {
+        "cookies": ["JSESSIONID"],
+        "body_patterns": ["org.springframework"]
+      },
+      "Express": {
+        "headers": ["x-powered-by: Express"],
+        "cookies": ["connect.sid"]
+      }
+    },
+    "waf": {
+      "Cloudflare": {
+        "headers": ["cf-ray", "server: cloudflare"],
+        "cookies": ["__cfduid", "__cf_bm"]
+      },
+      "AWS_WAF": {
+        "headers": ["x-amzn-requestid", "x-amz-cf-id"]
+      },
+      "ModSecurity": {
+        "headers": ["server: mod_security"],
+        "body_patterns": ["mod_security"]
+      },
+      "Akamai": {
+        "headers": ["x-akamai-transformed"],
+        "cookies": ["ak_bmsc"]
+      },
+      "Imperva": {
+        "headers": ["x-iinfo"],
+        "cookies": ["incap_ses", "visid_incap"]
+      }
+    },
+    "servers": {
+      "Apache": {
+        "headers": ["server: Apache"]
+      },
+      "Nginx": {
+        "headers": ["server: nginx"]
+      },
+      "IIS": {
+        "headers": ["server: Microsoft-IIS"]
+      },
+      "LiteSpeed": {
+        "headers": ["server: LiteSpeed"]
+      }
+    }
+  },
+  "sensitive_paths": {
+    "critical": {
+      "/.git/config": {"title": "Exposed Git Repository", "cvss": 9.1, "cwe": "CWE-538"},
+      "/.git/HEAD": {"title": "Exposed Git Repository", "cvss": 9.1, "cwe": "CWE-538"},
+      "/.env": {"title": "Exposed Environment File", "cvss": 9.8, "cwe": "CWE-200"},
+      "/.svn/entries": {"title": "Exposed SVN Repository", "cvss": 9.1, "cwe": "CWE-538"},
+      "/config.php.bak": {"title": "Backup Config File", "cvss": 8.5, "cwe": "CWE-530"}
+    },
+    "high": {
+      "/wp-config.php.bak": {"title": "WordPress Config Backup", "cvss": 8.5, "cwe": "CWE-530"},
+      "/database.yml": {"title": "Exposed Database Config", "cvss": 7.5, "cwe": "CWE-200"},
+      "/.htpasswd": {"title": "Exposed htpasswd File", "cvss": 7.5, "cwe": "CWE-200"},
+      "/web.config": {"title": "Exposed Web.config", "cvss": 7.5, "cwe": "CWE-200"}
+    },
+    "medium": {
+      "/phpinfo.php": {"title": "PHP Info Exposed", "cvss": 5.3, "cwe": "CWE-200"},
+      "/server-status": {"title": "Apache Status Exposed", "cvss": 5.3, "cwe": "CWE-200"},
+      "/debug": {"title": "Debug Endpoint", "cvss": 5.3, "cwe": "CWE-200"},
+      "/actuator": {"title": "Spring Actuator", "cvss": 5.3, "cwe": "CWE-200"}
+    }
+  },
+  "header_checks": {
+    "missing_security_headers": [
+      {
+        "name": "Strict-Transport-Security",
+        "severity": "HIGH",
+        "cvss": 7.5,
+        "cwe": "CWE-319"
+      },
+      {
+        "name": "Content-Security-Policy",
+        "severity": "HIGH",
+        "cvss": 7.1,
+        "cwe": "CWE-1021"
+      },
+      {
+        "name": "X-Frame-Options",
+        "severity": "MEDIUM",
+        "cvss": 5.4,
+        "cwe": "CWE-1021"
+      },
+      {
+        "name": "X-Content-Type-Options",
+        "severity": "MEDIUM",
+        "cvss": 5.3,
+        "cwe": "CWE-693"
+      },
+      {
+        "name": "Referrer-Policy",
+        "severity": "MEDIUM",
+        "cvss": 4.3,
+        "cwe": "CWE-200"
+      },
+      {
+        "name": "Permissions-Policy",
+        "severity": "MEDIUM",
+        "cvss": 4.3,
+        "cwe": "CWE-16"
+      }
+    ],
+    "disclosure_headers": [
+      "Server",
+      "X-Powered-By",
+      "X-AspNet-Version",
+      "X-AspNetMvc-Version"
+    ]
+  }
+}

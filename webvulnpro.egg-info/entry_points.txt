@@ -1,0 +1,2 @@
+[console_scripts]
+webvulnpro = webvulnpro.cli:cli_main

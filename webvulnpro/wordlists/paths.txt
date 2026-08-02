@@ -1,0 +1,527 @@
+# WebVulnPro Path Wordlist
+# Common paths for web application enumeration
+
+# Git/SVN exposure
+/.git/config
+/.git/HEAD
+/.git/index
+/.git/logs/HEAD
+/.gitignore
+/.svn/entries
+/.svn/wc.db
+/.hg/hgrc
+/.bzr/branch-format
+
+# Environment and config files
+/.env
+/.env.local
+/.env.production
+/.env.development
+/.env.backup
+/config.php
+/config.inc.php
+/configuration.php
+/settings.php
+/database.php
+/db.php
+/config.yml
+/config.yaml
+/config.json
+/settings.json
+/database.yml
+/secrets.yml
+/credentials.json
+/secrets.json
+/app.config
+/web.config
+/appsettings.json
+
+# Backup files
+/backup
+/backup.sql
+/backup.zip
+/backup.tar.gz
+/database.sql
+/dump.sql
+/db_backup.sql
+/site_backup.zip
+/www.zip
+/htdocs.zip
+/public_html.zip
+
+# Admin panels
+/admin
+/admin/
+/administrator
+/administrator/
+/admin.php
+/admin/login
+/admin/login.php
+/adminpanel
+/cpanel
+/controlpanel
+/manage
+/management
+/manager
+/dashboard
+/backend
+
+# WordPress specific
+/wp-admin/
+/wp-login.php
+/wp-config.php
+/wp-config.php.bak
+/wp-content/
+/wp-includes/
+/wp-content/debug.log
+/wp-content/uploads/
+/wp-content/plugins/
+/wp-content/themes/
+/xmlrpc.php
+/wp-json/
+/wp-cron.php
+
+# Drupal specific
+/core/install.php
+/user/login
+/admin/structure
+/sites/default/settings.php
+/CHANGELOG.txt
+/core/CHANGELOG.txt
+/modules/
+/themes/
+
+# Joomla specific
+/administrator/
+/components/
+/includes/
+/libraries/
+/modules/
+/plugins/
+/templates/
+/configuration.php
+
+# PHP Info and Debug
+/phpinfo.php
+/info.php
+/php_info.php
+/test.php
+/debug.php
+/debug/
+/debug/default/view
+/status
+/status.php
+
+# Apache specific
+/server-status
+/server-info
+/.htaccess
+/.htpasswd
+/apache/
+/apache2/
+/httpd/
+
+# Nginx specific
+/nginx_status
+/nginx.conf
+
+# Error pages and logs
+/error
+/errors
+/error_log
+/error.log
+/logs/
+/log/
+/debug.log
+/access.log
+/access_log
+
+# API endpoints
+/api/
+/api/v1/
+/api/v2/
+/api/swagger.json
+/swagger.json
+/swagger-ui/
+/swagger-ui.html
+/api-docs
+/openapi.json
+/graphql
+/graphiql
+/api/graphql
+
+# Health and metrics
+/health
+/healthcheck
+/health-check
+/ready
+/readiness
+/liveness
+/metrics
+/prometheus
+/status
+/ping
+
+# Java/Spring specific
+/actuator
+/actuator/env
+/actuator/health
+/actuator/info
+/actuator/metrics
+/actuator/mappings
+/actuator/beans
+/actuator/configprops
+/actuator/trace
+/jolokia
+/console
+/h2-console
+/WEB-INF/web.xml
+/META-INF/MANIFEST.MF
+
+# ASP.NET specific
+/trace.axd
+/elmah.axd
+/Elmah.axd
+/handler.ashx
+/scriptresource.axd
+/webresource.axd
+
+# Node.js specific
+/node_modules/
+/package.json
+/package-lock.json
+/npm-debug.log
+/yarn.lock
+
+# Python specific
+/requirements.txt
+/Pipfile
+/Pipfile.lock
+/manage.py
+/settings.py
+/local_settings.py
+
+# Ruby specific
+/Gemfile
+/Gemfile.lock
+/config/database.yml
+/config/secrets.yml
+/config/credentials.yml.enc
+
+# Common directories
+/assets/
+/static/
+/public/
+/uploads/
+/files/
+/images/
+/img/
+/css/
+/js/
+/scripts/
+/fonts/
+/media/
+/documents/
+/docs/
+/temp/
+/tmp/
+/cache/
+/private/
+/data/
+
+# CI/CD
+/.gitlab-ci.yml
+/.travis.yml
+/.circleci/config.yml
+/Jenkinsfile
+/.github/workflows/
+/azure-pipelines.yml
+/bitbucket-pipelines.yml
+
+# Docker
+/Dockerfile
+/docker-compose.yml
+/docker-compose.yaml
+/.dockerignore
+
+# Kubernetes
+/kubernetes/
+/k8s/
+/kube/
+/deployment.yaml
+/service.yaml
+
+# Security files
+/.well-known/security.txt
+/security.txt
+/humans.txt
+/robots.txt
+/sitemap.xml
+/sitemap_index.xml
+/crossdomain.xml
+/clientaccesspolicy.xml
+
+# IDE and editor files
+/.idea/
+/.vscode/
+/.project
+/.classpath
+/.settings/
+/nbproject/
+/.atom/
+/.sublime-project
+
+# OS files
+/.DS_Store
+/Thumbs.db
+/desktop.ini
+
+# Test files
+/test/
+/tests/
+/testing/
+/spec/
+/phpunit.xml
+/jest.config.js
+/.env.test
+/coverage/
+
+# Installation files
+/install/
+/install.php
+/setup/
+/setup.php
+/installer/
+
+# Archive files
+/old/
+/backup/
+/bak/
+/archive/
+/.old
+/.bak
+/.backup
+
+# CMS install files
+/install/index.php
+/setup/index.php
+/installer/index.php
+
+# Default pages
+/index.php
+/index.html
+/index.htm
+/default.asp
+/default.aspx
+/index.jsp
+/index.do
+
+# Login pages
+/login
+/login.php
+/login.html
+/signin
+/sign-in
+/auth/login
+/authenticate
+/user/login
+/account/login
+
+# Registration
+/register
+/signup
+/sign-up
+/registration
+/create-account
+/join
+
+# Password reset
+/forgot-password
+/reset-password
+/password-reset
+/recover
+/forgot
+
+# User profiles
+/profile
+/account
+/my-account
+/settings
+/preferences
+/user/profile
+
+# Search
+/search
+/search.php
+/find
+/query
+
+# Contact
+/contact
+/contact-us
+/feedback
+/support
+/help
+
+# About
+/about
+/about-us
+/company
+/team
+
+# Terms and policies
+/terms
+/terms-of-service
+/tos
+/privacy
+/privacy-policy
+/cookie-policy
+/gdpr
+
+# RSS and feeds
+/feed
+/rss
+/atom
+/feed.xml
+/rss.xml
+/atom.xml
+
+# Sitemaps
+/sitemap
+/sitemap.xml
+/sitemap_index.xml
+/sitemap1.xml
+/sitemap2.xml
+
+# Misc
+/version
+/version.txt
+/VERSION
+/CHANGELOG
+/CHANGELOG.md
+/README
+/README.md
+/README.txt
+/LICENSE
+/LICENSE.txt
+/INSTALL
+/INSTALL.txt
+/TODO
+/CONTRIBUTING.md
+
+# Build artifacts
+/build/
+/dist/
+/target/
+/out/
+/bin/
+/obj/
+
+# Mobile configs
+/app-ads.txt
+/ads.txt
+/.well-known/apple-app-site-association
+/.well-known/assetlinks.json
+
+# Common vulnerable paths
+/cgi-bin/
+/cgi-bin/test.cgi
+/cgi-bin/printenv
+/shell
+/cmd
+/exec
+/execute
+/run
+/command
+
+# Phpmyadmin
+/phpmyadmin
+/phpmyadmin/
+/pma
+/myadmin
+/mysql
+/mysqladmin
+/phpmyadmin/setup/
+/dbadmin
+/phpMyAdmin
+
+# Adminer
+/adminer
+/adminer.php
+
+# Webmail
+/webmail
+/mail
+/email
+/roundcube
+/squirrelmail
+/horde
+
+# Monitoring
+/munin
+/cacti
+/nagios
+/zabbix
+/grafana
+/kibana
+
+# Version control web interfaces
+/gitweb
+/cgit
+/viewvc
+/svnweb
+
+# File managers
+/filemanager
+/file-manager
+/elfinder
+/kcfinder
+/tinymce
+
+# Editors
+/ckeditor
+/fckeditor
+/tinymce
+
+# Payment related
+/checkout
+/cart
+/basket
+/order
+/orders
+/payment
+/pay
+
+# Internal/restricted
+/internal
+/private
+/restricted
+/secure
+/intranet
+/extranet
+/portal
+/staff
+
+# Dev/staging
+/dev
+/development
+/staging
+/stage
+/uat
+/test
+/demo
+/sandbox
+/preview
+/beta
+/alpha
+
+# API versioning
+/v1
+/v1/
+/v2
+/v2/
+/v3
+/v3/
+/api/v1
+/api/v2
+/api/v3

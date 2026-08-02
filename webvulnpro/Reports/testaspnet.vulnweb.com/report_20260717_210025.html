@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebVulnPro Security Assessment Report</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #f4f4f9;
+            color: #1a1a2e;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .card {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        h1 { color: #1a1a2e; margin-bottom: 10px; }
+        h2 { color: #16213e; margin-bottom: 15px; border-bottom: 2px solid #e94560; padding-bottom: 10px; }
+        h3 { color: #0f3460; margin: 15px 0 10px; font-size: 1.1em; }
+        .header { text-align: center; padding: 30px 0; }
+        .header p { color: #666; }
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .stat-card.critical { background: linear-gradient(135deg, #dc3545 0%, #c82333 100%); }
+        .stat-card.high { background: linear-gradient(135deg, #fd7e14 0%, #e8650a 100%); }
+        .stat-card.medium { background: linear-gradient(135deg, #ffc107 0%, #d4a106 100%); color: #333; }
+        .stat-card.low { background: linear-gradient(135deg, #17a2b8 0%, #117a8b 100%); }
+        .stat-card.info { background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%); }
+        .stat-card .number { font-size: 2.5em; font-weight: bold; }
+        .stat-card .label { font-size: 0.9em; opacity: 0.9; }
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: #343a40; color: white; }
+        tr:hover { background: #f5f5f5; }
+        .severity-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            font-weight: bold;
+            color: white;
+        }
+        .severity-CRITICAL { background: #dc3545; }
+        .severity-HIGH { background: #fd7e14; }
+        .severity-MEDIUM { background: #ffc107; color: #333; }
+        .severity-LOW { background: #17a2b8; }
+        .severity-INFO { background: #28a745; }
+        
+        /* Technology Styles */
+        .tech-category {
+            margin-bottom: 20px;
+        }
+        .tech-category-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            cursor: pointer;
+        }
+        .tech-category-header:hover {
+            background: #e9ecef;
+        }
+        .tech-category-icon {
+            font-size: 1.2em;
+        }
+        .tech-category-name {
+            font-weight: 600;
+            color: #333;
+        }
+        .tech-category-count {
+            background: #6c757d;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.75em;
+            margin-left: auto;
+        }
+        .tech-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 0 10px;
+        }
+        .tech-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: #e9ecef;
+            border-radius: 6px;
+            font-size: 0.9em;
+            border-left: 3px solid #6c757d;
+        }
+        .tech-badge .tech-name {
+            font-weight: 500;
+        }
+        .tech-badge .tech-version {
+            color: #495057;
+            font-size: 0.85em;
+            background: rgba(0,0,0,0.1);
+            padding: 1px 6px;
+            border-radius: 3px;
+        }
+        .tech-badge .tech-confidence {
+            font-size: 0.75em;
+            color: #6c757d;
+        }
+        
+        /* Category-specific colors */
+        .tech-badge.cat-cms { border-left-color: #4CAF50; background: #E8F5E9; }
+        .tech-badge.cat-ecommerce { border-left-color: #FF9800; background: #FFF3E0; }
+        .tech-badge.cat-framework { border-left-color: #2196F3; background: #E3F2FD; }
+        .tech-badge.cat-js-framework { border-left-color: #61DAFB; background: #E1F5FE; }
+        .tech-badge.cat-js-library { border-left-color: #F7DF1E; background: #FFFDE7; }
+        .tech-badge.cat-language { border-left-color: #9C27B0; background: #F3E5F5; }
+        .tech-badge.cat-webserver { border-left-color: #607D8B; background: #ECEFF1; }
+        .tech-badge.cat-os { border-left-color: #795548; background: #EFEBE9; }
+        .tech-badge.cat-database { border-left-color: #FF5722; background: #FBE9E7; }
+        .tech-badge.cat-cache { border-left-color: #00BCD4; background: #E0F7FA; }
+        .tech-badge.cat-cdn { border-left-color: #03A9F4; background: #E1F5FE; }
+        .tech-badge.cat-waf { border-left-color: #F44336; background: #FFEBEE; }
+        .tech-badge.cat-security { border-left-color: #E91E63; background: #FCE4EC; }
+        .tech-badge.cat-hosting { border-left-color: #3F51B5; background: #E8EAF6; }
+        .tech-badge.cat-analytics { border-left-color: #4CAF50; background: #E8F5E9; }
+        .tech-badge.cat-font { border-left-color: #795548; background: #EFEBE9; }
+        .tech-badge.cat-payment { border-left-color: #4CAF50; background: #E8F5E9; }
+        .tech-badge.cat-seo { border-left-color: #8BC34A; background: #F1F8E9; }
+        .tech-badge.cat-ui { border-left-color: #E91E63; background: #FCE4EC; }
+        .tech-badge.cat-chat { border-left-color: #4CAF50; background: #E8F5E9; }
+        .tech-badge.cat-video { border-left-color: #F44336; background: #FFEBEE; }
+        .tech-badge.cat-search { border-left-color: #673AB7; background: #EDE7F6; }
+        .tech-badge.cat-build { border-left-color: #607D8B; background: #ECEFF1; }
+        
+        .finding-card {
+            border-left: 4px solid #ccc;
+            padding: 15px;
+            margin: 10px 0;
+            background: #fafafa;
+        }
+        .finding-card.CRITICAL { border-left-color: #dc3545; }
+        .finding-card.HIGH { border-left-color: #fd7e14; }
+        .finding-card.MEDIUM { border-left-color: #ffc107; }
+        .finding-card.LOW { border-left-color: #17a2b8; }
+        .finding-card.INFO { border-left-color: #28a745; }
+        .risk-score {
+            font-size: 3em;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+        }
+        .risk-low { color: #28a745; }
+        .risk-medium { color: #ffc107; }
+        .risk-high { color: #fd7e14; }
+        .risk-critical { color: #dc3545; }
+        .evidence { 
+            background: #f8f9fa; 
+            padding: 10px; 
+            border-radius: 4px; 
+            font-family: monospace; 
+            font-size: 0.85em;
+            overflow-x: auto;
+        }
+        footer { text-align: center; padding: 20px; color: #666; font-size: 0.9em; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>WebVulnPro Security Assessment Report</h1>
+            <p>Generated: 2026-07-17 21:00:25</p>
+        </div>
+
+
+        <div class="card">
+            <h2>Executive Summary</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="number">1</div>
+                    <div class="label">Targets Scanned</div>
+                </div>
+                <div class="stat-card">
+                    <div class="number">22</div>
+                    <div class="label">Total Findings</div>
+                </div>
+                <div class="stat-card critical">
+                    <div class="number">1</div>
+                    <div class="label">Critical</div>
+                </div>
+                <div class="stat-card high">
+                    <div class="number">4</div>
+                    <div class="label">High</div>
+                </div>
+                <div class="stat-card medium">
+                    <div class="number">8</div>
+                    <div class="label">Medium</div>
+                </div>
+                <div class="stat-card low">
+                    <div class="number">5</div>
+                    <div class="label">Low</div>
+                </div>
+                <div class="stat-card info">
+                    <div class="number">4</div>
+                    <div class="label">Info</div>
+                </div>
+            </div>
+            <div class="risk-score risk-critical">
+                Risk Score: 100/100
+            </div>
+        </div>
+
+
+        <div class="card">
+            <h2>Findings by Category</h2>
+            <table>
+                <thead><tr><th>Category</th><th>Count</th></tr></thead>
+                <tbody><tr><td>CMS Security</td><td>9</td></tr><tr><td>HTTP Headers</td><td>5</td></tr><tr><td>Information Disclosure</td><td>3</td></tr><tr><td>Information</td><td>2</td></tr><tr><td>CSRF</td><td>1</td></tr><tr><td>HTTP Protocol</td><td>1</td></tr><tr><td>Sensitive Path Exposure</td><td>1</td></tr></tbody>
+            </table>
+        </div>
+
+
+        <div class="card">
+            <h2>Technologies Detected</h2>
+            
+                <div class="tech-category">
+                    <div class="tech-category-header">
+                        <span class="tech-category-icon">📝</span>
+                        <span class="tech-category-name">CMS</span>
+                        <span class="tech-category-count">1</span>
+                    </div>
+                    <div class="tech-list">
+                        
+                    <div class="tech-badge cat-cms">
+                        <span class="tech-name">WordPress</span>
+                        
+                        <span class="tech-confidence">80%</span>
+                    </div>
+                
+                    </div>
+                </div>
+            
+                <div class="tech-category">
+                    <div class="tech-category-header">
+                        <span class="tech-category-icon">🏗️</span>
+                        <span class="tech-category-name">Framework</span>
+                        <span class="tech-category-count">1</span>
+                    </div>
+                    <div class="tech-list">
+                        
+                    <div class="tech-badge cat-framework">
+                        <span class="tech-name">ASP.NET</span>
+                        <span class="tech-version">2.0.50727</span>
+                        <span class="tech-confidence">89%</span>
+                    </div>
+                
+                    </div>
+                </div>
+            
+                <div class="tech-category">
+                    <div class="tech-category-header">
+                        <span class="tech-category-icon">🖥️</span>
+                        <span class="tech-category-name">Web Server</span>
+                        <span class="tech-category-count">1</span>
+                    </div>
+                    <div class="tech-list">
+                        
+                    <div class="tech-badge cat-webserver">
+                        <span class="tech-name">IIS</span>
+                        <span class="tech-version">8.5</span>
+                        <span class="tech-confidence">35%</span>
+                    </div>
+                
+                    </div>
+                </div>
+            
+                <div class="tech-category">
+                    <div class="tech-category-header">
+                        <span class="tech-category-icon">💿</span>
+                        <span class="tech-category-name">Operating System</span>
+                        <span class="tech-category-count">1</span>
+                    </div>
+                    <div class="tech-list">
+                        
+                    <div class="tech-badge cat-os">
+                        <span class="tech-name">Windows Server</span>
+                        
+                        <span class="tech-confidence">35%</span>
+                    </div>
+                
+                    </div>
+                </div>
+            
+        </div>
+
+
+        <div class="card">
+            <h2>Target: http://testaspnet.vulnweb.com/login.aspx</h2>
+            <p>Status: 200 | Duration: 48.62s | 
+               Findings: 22</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Severity</th>
+                        <th>Title</th>
+                        <th>CVSS</th>
+                        <th>Category</th>
+                        <th>CWE</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td><span class="severity-badge severity-CRITICAL">CRITICAL</span></td>
+                    <td>WordPress Config Backup Exposed</td>
+                    <td>9.8</td>
+                    <td>CMS Security</td>
+                    <td>CWE-200</td>
+                </tr>
+
+                <tr>
+                    <td><span class="severity-badge severity-HIGH">HIGH</span></td>
+                    <td>Missing Content Security Policy (CSP)</td>
+                    <td>7.1</td>
+                    <td>HTTP Headers</td>
+                    <td>CWE-1021</td>
+                </tr>
+
+                <tr>
+                    <td><span class="severity-badge severity-HIGH">HIGH</span></td>
+                    <td>Git Repository Exposed</td>
+                    <td>7.5</td>
+                    <td>CMS Security</td>
+                    <td>CWE-200</td>
+                </tr>
+
+                <tr>
+                    <td><span class="severity-badge severity-HIGH">HIGH</span></td>
+                    <td>WordPress Debug Log Exposed</td>
+                    <td>7.5</td>
+                    <td>CMS Security</td>
+                    <td>CWE-200</td>
+                </tr>
+
+                <tr>
+                    <td><span class="severity-badge severity-HIGH">HIGH</span></td>
+                    <td>Backup/Sensitive Files Exposed (26 found)</td>
+                    <td>7.5</td>
+                    <td>Information Disclosure</td>
+                    <td>CWE-200</td>
+                </tr>
+
+                <tr>
+                    <td><span class="severity-badge severity-MEDIUM">MEDIUM</span></td>
+                    <td>Missing X-Frame-Options Header</td>
+                    <td>5.4</td>
+                    <td>HTTP Headers</td>
+                    <td>CWE-1021</td>
+                </tr>
+
+                <tr>
+                    <td><span class="severity-badge severity-MEDIUM">MEDIUM</span></td>
+                    <td>Missing X-Content-Type-Options Header</td>
+                    <td>5.3</td>
+                    <td>HTTP Headers</td>
+                    <td>CWE-693</td>
+                </tr>
+
+                <tr>
+                    <td><span class="severity-badge severity-MEDIUM">MEDIUM</span></td>
+                    <td>Missing Referrer-Policy Header</td>
+                    <td>4.3</td>
+                    <td>HTTP Headers</td>
+                    <td>CWE-200</td>
+                </tr>
+
+                <tr>
+                    <td><span class="severity-badge severity-MEDIUM">MEDIUM</span></td>
+                    <td>Missing Permissions-Policy Header</td>
+                    <td>4.3</td>
+                    <td>HTTP Headers</td>
+                    <td>CWE-16</td>
+                </tr>
+
+                <tr>
+                    <td><span class="severity-badge severity-MEDIUM">MEDIUM</span></td>
+                    <td>Forms Missing CSRF Protection</td>
+                    <td>5.3</td>
+                    <td>CSRF</td>
+                    <td>CWE-352</td>
+                </tr>
+
+                <tr>
+                    <td><span class="severity-badge severity-MEDIUM">MEDIUM</span></td>
+                    <td>Potential HTTP Request Smuggling Vector</td>
+                    <td>5.3</td>
+                    <td>HTTP Protocol</td>
+                    <td>CWE-444</td>
+                </tr>
+
+                <tr>
+                    <td><span class="severity-badge severity-MEDIUM">MEDIUM</span></td>
+                    <td>WordPress User Enumeration via REST API</td>
+                    <td>5.3</td>
+                    <td>CMS Security</td>
+                    <td>CWE-200</td>
+                </tr>
+
+                <tr>
+                    <td><span class="severity-badge severity-MEDIUM">MEDIUM</span></td>
+                    <td>WordPress Uploads Directory Listing</td>
+                    <td>5.3</td>
+                    <td>CMS Security</td>
+                    <td>CWE-200</td>
+                </tr>
+
+                <tr>
+                    <td><span class="severity-badge severity-LOW">LOW</span></td>
+                    <td>Server Version Disclosure</td>
+                    <td>2.6</td>
+                    <td>Information Disclosure</td>
+                    <td>CWE-200</td>
+                </tr>
+
+                <tr>
+                    <td><span class="severity-badge severity-LOW">LOW</span></td>
+                    <td>ASP.NET Version Disclosure</td>
+                    <td>2.6</td>
+                    <td>Information Disclosure</td>
+                    <td>CWE-200</td>
+                </tr>
+
+                <tr>
+                    <td><span class="severity-badge severity-LOW">LOW</span></td>
+                    <td>WordPress XML-RPC Enabled</td>
+                    <td>3.7</td>
+                    <td>CMS Security</td>
+                    <td>CWE-200</td>
+                </tr>
+
+                <tr>
+                    <td><span class="severity-badge severity-LOW">LOW</span></td>
+                    <td>WordPress Version Exposed</td>
+                    <td>2.0</td>
+                    <td>CMS Security</td>
+                    <td>CWE-200</td>
+                </tr>
+
+                <tr>
+                    <td><span class="severity-badge severity-LOW">LOW</span></td>
+                    <td>WordPress Includes Directory Accessible</td>
+                    <td>2.0</td>
+                    <td>CMS Security</td>
+                    <td>CWE-200</td>
+                </tr>
+
+                <tr>
+                    <td><span class="severity-badge severity-INFO">INFO</span></td>
+                    <td>Robots.txt Found</td>
+                    <td>0.0</td>
+                    <td>Sensitive Path Exposure</td>
+                    <td>N/A</td>
+                </tr>
+
+                <tr>
+                    <td><span class="severity-badge severity-INFO">INFO</span></td>
+                    <td>API Endpoints Discovered (38 found)</td>
+                    <td>0.0</td>
+                    <td>Information</td>
+                    <td>N/A</td>
+                </tr>
+
+                <tr>
+                    <td><span class="severity-badge severity-INFO">INFO</span></td>
+                    <td>Hidden Parameters Discovered (98 found)</td>
+                    <td>0.0</td>
+                    <td>Information</td>
+                    <td>N/A</td>
+                </tr>
+
+                <tr>
+                    <td><span class="severity-badge severity-INFO">INFO</span></td>
+                    <td>WordPress REST API Accessible</td>
+                    <td>0.0</td>
+                    <td>CMS Security</td>
+                    <td>CWE-200</td>
+                </tr>
+</tbody>
+            </table>
+        </div>
+<div class="card"><h2>Detailed Findings</h2>
+
+                <div class="finding-card CRITICAL">
+                    <h3><span class="severity-badge severity-CRITICAL">CRITICAL</span> WordPress Config Backup Exposed</h3>
+                    <p><strong>CVSS:</strong> 9.8 | 
+                       <strong>Category:</strong> CMS Security
+                        | <strong>CWE:</strong> CWE-200</p>
+                    <p><strong>Description:</strong> A backup of wp-config.php containing database credentials may be accessible.</p>
+                    <p><strong>Remediation:</strong> Remove backup files from the web root.</p>
+                    <p><strong>Evidence:</strong></p>
+                    <div class="evidence">Accessible at: http://testaspnet.vulnweb.com/login.aspx/wp-config.php.bak
+Status: 200</div>
+                </div>
+
+
+                <div class="finding-card HIGH">
+                    <h3><span class="severity-badge severity-HIGH">HIGH</span> Missing Content Security Policy (CSP)</h3>
+                    <p><strong>CVSS:</strong> 7.1 | 
+                       <strong>Category:</strong> HTTP Headers
+                        | <strong>CWE:</strong> CWE-1021</p>
+                    <p><strong>Description:</strong> No Content-Security-Policy header found. This makes the application vulnerable to XSS and data injection attacks.</p>
+                    <p><strong>Remediation:</strong> Implement a strict CSP. Start with: Content-Security-Policy: default-src &#x27;self&#x27;; script-src &#x27;self&#x27;; object-src &#x27;none&#x27;</p>
+                    <p><strong>Evidence:</strong></p>
+                    <div class="evidence">Header &#x27;content-security-policy&#x27; not found in response</div>
+                </div>
+
+
+                <div class="finding-card HIGH">
+                    <h3><span class="severity-badge severity-HIGH">HIGH</span> Git Repository Exposed</h3>
+                    <p><strong>CVSS:</strong> 7.5 | 
+                       <strong>Category:</strong> CMS Security
+                        | <strong>CWE:</strong> CWE-200</p>
+                    <p><strong>Description:</strong> Git repository configuration is exposed.</p>
+                    <p><strong>Remediation:</strong> Remove .git directory or block access via web server configuration.</p>
+                    <p><strong>Evidence:</strong></p>
+                    <div class="evidence">Accessible at: http://testaspnet.vulnweb.com/login.aspx/.git/config
+Status: 200</div>
+                </div>
+
+
+                <div class="finding-card HIGH">
+                    <h3><span class="severity-badge severity-HIGH">HIGH</span> WordPress Debug Log Exposed</h3>
+                    <p><strong>CVSS:</strong> 7.5 | 
+                       <strong>Category:</strong> CMS Security
+                        | <strong>CWE:</strong> CWE-200</p>
+                    <p><strong>Description:</strong> WordPress debug log may contain sensitive information.</p>
+                    <p><strong>Remediation:</strong> Disable WP_DEBUG_LOG in production or move logs outside web root.</p>
+                    <p><strong>Evidence:</strong></p>
+                    <div class="evidence">Accessible at: http://testaspnet.vulnweb.com/login.aspx/wp-content/debug.log
+Status: 200</div>
+                </div>
+
+
+                <div class="finding-card HIGH">
+                    <h3><span class="severity-badge severity-HIGH">HIGH</span> Backup/Sensitive Files Exposed (26 found)</h3>
+                    <p><strong>CVSS:</strong> 7.5 | 
+                       <strong>Category:</strong> Information Disclosure
+                        | <strong>CWE:</strong> CWE-200</p>
+                    <p><strong>Description:</strong> Backup or sensitive configuration files are publicly accessible.</p>
+                    <p><strong>Remediation:</strong> Remove backup files from web root or restrict access.</p>
+                    <p><strong>Evidence:</strong></p>
+                    <div class="evidence">Files found: web.config, web.config.bak, web.config.old, .htaccess, .htaccess.bak, .htpasswd, config.php, config.php.bak, config.inc.php, database.yml</div>
+                </div>
+
+
+                <div class="finding-card MEDIUM">
+                    <h3><span class="severity-badge severity-MEDIUM">MEDIUM</span> Missing X-Frame-Options Header</h3>
+                    <p><strong>CVSS:</strong> 5.4 | 
+                       <strong>Category:</strong> HTTP Headers
+                        | <strong>CWE:</strong> CWE-1021</p>
+                    <p><strong>Description:</strong> X-Frame-Options header is missing. The site may be vulnerable to clickjacking attacks.</p>
+                    <p><strong>Remediation:</strong> Add &#x27;X-Frame-Options: DENY&#x27; or &#x27;X-Frame-Options: SAMEORIGIN&#x27; header.</p>
+                    <p><strong>Evidence:</strong></p>
+                    <div class="evidence">Header &#x27;x-frame-options&#x27; not found in response</div>
+                </div>
+
+
+                <div class="finding-card MEDIUM">
+                    <h3><span class="severity-badge severity-MEDIUM">MEDIUM</span> Missing X-Content-Type-Options Header</h3>
+                    <p><strong>CVSS:</strong> 5.3 | 
+                       <strong>Category:</strong> HTTP Headers
+                        | <strong>CWE:</strong> CWE-693</p>
+                    <p><strong>Description:</strong> X-Content-Type-Options header is missing. Browsers may MIME-sniff responses, potentially executing malicious content.</p>
+                    <p><strong>Remediation:</strong> Add &#x27;X-Content-Type-Options: nosniff&#x27; header.</p>
+                    <p><strong>Evidence:</strong></p>
+                    <div class="evidence">Header &#x27;x-content-type-options&#x27; not found in response</div>
+                </div>
+
+
+                <div class="finding-card MEDIUM">
+                    <h3><span class="severity-badge severity-MEDIUM">MEDIUM</span> Missing Referrer-Policy Header</h3>
+                    <p><strong>CVSS:</strong> 4.3 | 
+                       <strong>Category:</strong> HTTP Headers
+                        | <strong>CWE:</strong> CWE-200</p>
+                    <p><strong>Description:</strong> Referrer-Policy header is missing. Sensitive information may leak via the Referer header.</p>
+                    <p><strong>Remediation:</strong> Add &#x27;Referrer-Policy: strict-origin-when-cross-origin&#x27; or &#x27;no-referrer&#x27; header.</p>
+                    <p><strong>Evidence:</strong></p>
+                    <div class="evidence">Header &#x27;referrer-policy&#x27; not found in response</div>
+                </div>
+
+
+                <div class="finding-card MEDIUM">
+                    <h3><span class="severity-badge severity-MEDIUM">MEDIUM</span> Missing Permissions-Policy Header</h3>
+                    <p><strong>CVSS:</strong> 4.3 | 
+                       <strong>Category:</strong> HTTP Headers
+                        | <strong>CWE:</strong> CWE-16</p>
+                    <p><strong>Description:</strong> Permissions-Policy (formerly Feature-Policy) header is missing. Browser features are not restricted.</p>
+                    <p><strong>Remediation:</strong> Add Permissions-Policy header to restrict features: Permissions-Policy: geolocation=(), camera=(), microphone=()</p>
+                    <p><strong>Evidence:</strong></p>
+                    <div class="evidence">Header &#x27;permissions-policy&#x27; not found in response</div>
+                </div>
+
+
+                <div class="finding-card MEDIUM">
+                    <h3><span class="severity-badge severity-MEDIUM">MEDIUM</span> Forms Missing CSRF Protection</h3>
+                    <p><strong>CVSS:</strong> 5.3 | 
+                       <strong>Category:</strong> CSRF
+                        | <strong>CWE:</strong> CWE-352</p>
+                    <p><strong>Description:</strong> Found 1 form(s) without visible CSRF token protection.</p>
+                    <p><strong>Remediation:</strong> Implement CSRF tokens in all state-changing forms.</p>
+                    <p><strong>Evidence:</strong></p>
+                    <div class="evidence">1 forms without csrf tokens detected</div>
+                </div>
+
+
+                <div class="finding-card MEDIUM">
+                    <h3><span class="severity-badge severity-MEDIUM">MEDIUM</span> Potential HTTP Request Smuggling Vector</h3>
+                    <p><strong>CVSS:</strong> 5.3 | 
+                       <strong>Category:</strong> HTTP Protocol
+                        | <strong>CWE:</strong> CWE-444</p>
+                    <p><strong>Description:</strong> The server accepts requests with conflicting Content-Length and Transfer-Encoding headers, which may indicate vulnerability to HTTP request smuggling.</p>
+                    <p><strong>Remediation:</strong> Configure the server to reject requests with conflicting Content-Length and Transfer-Encoding headers. Ensure proper HTTP parsing at all layers.</p>
+                    <p><strong>Evidence:</strong></p>
+                    <div class="evidence">Server accepted request with both Content-Length and Transfer-Encoding headers. Response status: 200</div>
+                </div>
+
+
+                <div class="finding-card MEDIUM">
+                    <h3><span class="severity-badge severity-MEDIUM">MEDIUM</span> WordPress User Enumeration via REST API</h3>
+                    <p><strong>CVSS:</strong> 5.3 | 
+                       <strong>Category:</strong> CMS Security
+                        | <strong>CWE:</strong> CWE-200</p>
+                    <p><strong>Description:</strong> User enumeration is possible through the WordPress REST API.</p>
+                    <p><strong>Remediation:</strong> Disable user enumeration by restricting access to /wp-json/wp/v2/users endpoint.</p>
+                    <p><strong>Evidence:</strong></p>
+                    <div class="evidence">Accessible at: http://testaspnet.vulnweb.com/login.aspx/wp-json/wp/v2/users
+Status: 200</div>
+                </div>
+
+
+                <div class="finding-card MEDIUM">
+                    <h3><span class="severity-badge severity-MEDIUM">MEDIUM</span> WordPress Uploads Directory Listing</h3>
+                    <p><strong>CVSS:</strong> 5.3 | 
+                       <strong>Category:</strong> CMS Security
+                        | <strong>CWE:</strong> CWE-200</p>
+                    <p><strong>Description:</strong> Directory listing is enabled on uploads folder.</p>
+                    <p><strong>Remediation:</strong> Disable directory listing or add index file.</p>
+                    <p><strong>Evidence:</strong></p>
+                    <div class="evidence">Accessible at: http://testaspnet.vulnweb.com/login.aspx/wp-content/uploads/
+Status: 200</div>
+                </div>
+
+
+                <div class="finding-card LOW">
+                    <h3><span class="severity-badge severity-LOW">LOW</span> Server Version Disclosure</h3>
+                    <p><strong>CVSS:</strong> 2.6 | 
+                       <strong>Category:</strong> Information Disclosure
+                        | <strong>CWE:</strong> CWE-200</p>
+                    <p><strong>Description:</strong> The Server header reveals web server software and version information.</p>
+                    <p><strong>Remediation:</strong> Remove or obfuscate the Server header to hide implementation details.</p>
+                    <p><strong>Evidence:</strong></p>
+                    <div class="evidence">server: Microsoft-IIS/8.5</div>
+                </div>
+
+
+                <div class="finding-card LOW">
+                    <h3><span class="severity-badge severity-LOW">LOW</span> ASP.NET Version Disclosure</h3>
+                    <p><strong>CVSS:</strong> 2.6 | 
+                       <strong>Category:</strong> Information Disclosure
+                        | <strong>CWE:</strong> CWE-200</p>
+                    <p><strong>Description:</strong> X-AspNet-Version header reveals the ASP.NET version.</p>
+                    <p><strong>Remediation:</strong> Remove X-AspNet-Version header via web.config or IIS configuration.</p>
+                    <p><strong>Evidence:</strong></p>
+                    <div class="evidence">x-aspnet-version: 2.0.50727</div>
+                </div>
+
+
+                <div class="finding-card LOW">
+                    <h3><span class="severity-badge severity-LOW">LOW</span> WordPress XML-RPC Enabled</h3>
+                    <p><strong>CVSS:</strong> 3.7 | 
+                       <strong>Category:</strong> CMS Security
+                        | <strong>CWE:</strong> CWE-200</p>
+                    <p><strong>Description:</strong> XML-RPC is enabled which can be used for brute-force attacks.</p>
+                    <p><strong>Remediation:</strong> Disable XML-RPC if not needed or use a plugin to restrict access.</p>
+                    <p><strong>Evidence:</strong></p>
+                    <div class="evidence">Accessible at: http://testaspnet.vulnweb.com/login.aspx/xmlrpc.php
+Status: 200</div>
+                </div>
+
+
+                <div class="finding-card LOW">
+                    <h3><span class="severity-badge severity-LOW">LOW</span> WordPress Version Exposed</h3>
+                    <p><strong>CVSS:</strong> 2.0 | 
+                       <strong>Category:</strong> CMS Security
+                        | <strong>CWE:</strong> CWE-200</p>
+                    <p><strong>Description:</strong> WordPress readme.html reveals version information.</p>
+                    <p><strong>Remediation:</strong> Remove or restrict access to readme.html.</p>
+                    <p><strong>Evidence:</strong></p>
+                    <div class="evidence">Accessible at: http://testaspnet.vulnweb.com/login.aspx/readme.html
+Status: 200</div>
+                </div>
+
+
+                <div class="finding-card LOW">
+                    <h3><span class="severity-badge severity-LOW">LOW</span> WordPress Includes Directory Accessible</h3>
+                    <p><strong>CVSS:</strong> 2.0 | 
+                       <strong>Category:</strong> CMS Security
+                        | <strong>CWE:</strong> CWE-200</p>
+                    <p><strong>Description:</strong> WordPress includes directory is accessible.</p>
+                    <p><strong>Remediation:</strong> Restrict access to wp-includes directory.</p>
+                    <p><strong>Evidence:</strong></p>
+                    <div class="evidence">Accessible at: http://testaspnet.vulnweb.com/login.aspx/wp-includes/
+Status: 200</div>
+                </div>
+
+
+                <div class="finding-card INFO">
+                    <h3><span class="severity-badge severity-INFO">INFO</span> Robots.txt Found</h3>
+                    <p><strong>CVSS:</strong> 0.0 | 
+                       <strong>Category:</strong> Sensitive Path Exposure
+                       </p>
+                    <p><strong>Description:</strong> Sensitive path &#x27;/robots.txt&#x27; is accessible (HTTP 200).</p>
+                    <p><strong>Remediation:</strong> Restrict access to this path or remove it from production.</p>
+                    <p><strong>Evidence:</strong></p>
+                    <div class="evidence">URL: http://testaspnet.vulnweb.com/robots.txt, Status: 200, Size: 13</div>
+                </div>
+
+
+                <div class="finding-card INFO">
+                    <h3><span class="severity-badge severity-INFO">INFO</span> API Endpoints Discovered (38 found)</h3>
+                    <p><strong>CVSS:</strong> 0.0 | 
+                       <strong>Category:</strong> Information
+                       </p>
+                    <p><strong>Description:</strong> Discovered 38 API endpoints.</p>
+                    <p><strong>Remediation:</strong> Ensure all API endpoints have proper authentication and authorization.</p>
+                    <p><strong>Evidence:</strong></p>
+                    <div class="evidence">Endpoints: /api/, /swagger.yaml, /api/docs, /.well-known/openid-configuration, /api/swagger, /swagger/, /api/login, /v1, /api/profile, /swagger.json</div>
+                </div>
+
+
+                <div class="finding-card INFO">
+                    <h3><span class="severity-badge severity-INFO">INFO</span> Hidden Parameters Discovered (98 found)</h3>
+                    <p><strong>CVSS:</strong> 0.0 | 
+                       <strong>Category:</strong> Information
+                       </p>
+                    <p><strong>Description:</strong> Discovered 98 potentially active parameters.</p>
+                    <p><strong>Remediation:</strong> Test discovered parameters for injection vulnerabilities.</p>
+                    <p><strong>Evidence:</strong></p>
+                    <div class="evidence">Parameters: from, page, tpl, api_key, authorization, filepath, cb, username, dir, doc</div>
+                </div>
+
+
+                <div class="finding-card INFO">
+                    <h3><span class="severity-badge severity-INFO">INFO</span> WordPress REST API Accessible</h3>
+                    <p><strong>CVSS:</strong> 0.0 | 
+                       <strong>Category:</strong> CMS Security
+                        | <strong>CWE:</strong> CWE-200</p>
+                    <p><strong>Description:</strong> WordPress REST API is accessible.</p>
+                    <p><strong>Remediation:</strong> Review REST API endpoints for sensitive data exposure.</p>
+                    <p><strong>Evidence:</strong></p>
+                    <div class="evidence">Accessible at: http://testaspnet.vulnweb.com/login.aspx/wp-json/
+Status: 200</div>
+                </div>
+
+</div>
+
+        <footer>
+            <p>Report generated by WebVulnPro v2.0.0</p>
+            <p>This report contains sensitive security information. Handle according to your organization's policies.</p>
+        </footer>
+    </div>
+</body>
+</html>

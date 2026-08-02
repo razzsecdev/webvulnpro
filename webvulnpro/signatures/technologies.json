@@ -1,0 +1,1252 @@
+{
+  "categories": {
+    "CMS": {"name": "CMS", "priority": 1},
+    "E-commerce": {"name": "E-commerce", "priority": 2},
+    "Framework": {"name": "Framework", "priority": 3},
+    "JavaScript Framework": {"name": "JavaScript Framework", "priority": 4},
+    "JavaScript Library": {"name": "JavaScript Library", "priority": 5},
+    "Programming Language": {"name": "Programming Language", "priority": 6},
+    "Web Server": {"name": "Web Server", "priority": 7},
+    "Operating System": {"name": "Operating System", "priority": 8},
+    "Database": {"name": "Database", "priority": 9},
+    "Cache": {"name": "Cache", "priority": 10},
+    "CDN": {"name": "CDN", "priority": 11},
+    "WAF": {"name": "WAF", "priority": 12},
+    "Security": {"name": "Security", "priority": 13},
+    "Hosting": {"name": "Hosting", "priority": 14},
+    "Analytics": {"name": "Analytics", "priority": 15},
+    "Font": {"name": "Font", "priority": 16},
+    "Payment": {"name": "Payment", "priority": 17},
+    "SEO": {"name": "SEO", "priority": 18},
+    "UI Framework": {"name": "UI Framework", "priority": 19}
+  },
+  "technologies": {
+    "WordPress": {
+      "category": "CMS",
+      "website": "https://wordpress.org",
+      "icon": "wordpress.svg",
+      "headers": {
+        "X-Powered-By": "WordPress",
+        "Link": "wp-json"
+      },
+      "cookies": {
+        "wordpress_": "",
+        "wp-settings-": ""
+      },
+      "html": [
+        "/wp-content/",
+        "/wp-includes/",
+        "wp-json",
+        "<meta name=\"generator\" content=\"WordPress"
+      ],
+      "scripts": [
+        "/wp-includes/js/",
+        "/wp-content/plugins/",
+        "/wp-content/themes/"
+      ],
+      "meta": {
+        "generator": "WordPress"
+      },
+      "version": {
+        "regex": "WordPress[\\s/]([\\d.]+)",
+        "header": "X-Powered-By",
+        "meta": "generator"
+      },
+      "implies": ["PHP", "MySQL"]
+    },
+    "Drupal": {
+      "category": "CMS",
+      "website": "https://drupal.org",
+      "headers": {
+        "X-Drupal-Cache": "",
+        "X-Generator": "Drupal"
+      },
+      "html": [
+        "Drupal.settings",
+        "/sites/default/files/",
+        "drupal.org",
+        "jQuery.extend(Drupal.settings"
+      ],
+      "scripts": [
+        "/core/misc/drupal.js",
+        "/modules/",
+        "/sites/all/"
+      ],
+      "meta": {
+        "generator": "Drupal"
+      },
+      "version": {
+        "regex": "Drupal[\\s/]([\\d.]+)",
+        "header": "X-Generator"
+      },
+      "implies": ["PHP"]
+    },
+    "Joomla": {
+      "category": "CMS",
+      "website": "https://joomla.org",
+      "html": [
+        "/media/jui/",
+        "/components/com_",
+        "Joomla!",
+        "/templates/system/"
+      ],
+      "scripts": [
+        "/media/system/js/"
+      ],
+      "meta": {
+        "generator": "Joomla"
+      },
+      "version": {
+        "regex": "Joomla[!]?[\\s/]([\\d.]+)",
+        "meta": "generator"
+      },
+      "implies": ["PHP"]
+    },
+    "Magento": {
+      "category": "E-commerce",
+      "website": "https://magento.com",
+      "cookies": {
+        "frontend": "",
+        "PHPSESSID": ""
+      },
+      "html": [
+        "/skin/frontend/",
+        "/js/mage/",
+        "Mage.Cookies",
+        "var BLANK_URL",
+        "/static/version"
+      ],
+      "scripts": [
+        "/js/varien/",
+        "/mage/",
+        "requirejs/require.js"
+      ],
+      "version": {
+        "regex": "Magento[\\s/]([\\d.]+)"
+      },
+      "implies": ["PHP", "MySQL"]
+    },
+    "Shopify": {
+      "category": "E-commerce",
+      "website": "https://shopify.com",
+      "headers": {
+        "X-ShopId": "",
+        "X-Shopify-Stage": ""
+      },
+      "cookies": {
+        "_shopify_s": "",
+        "_shopify_y": "",
+        "cart": ""
+      },
+      "html": [
+        "cdn.shopify.com",
+        "Shopify.theme",
+        "myshopify.com"
+      ],
+      "scripts": [
+        "cdn.shopify.com/s/"
+      ]
+    },
+    "WooCommerce": {
+      "category": "E-commerce",
+      "website": "https://woocommerce.com",
+      "html": [
+        "woocommerce",
+        "/wp-content/plugins/woocommerce/",
+        "wc-ajax"
+      ],
+      "scripts": [
+        "/wp-content/plugins/woocommerce/"
+      ],
+      "meta": {
+        "generator": "WooCommerce"
+      },
+      "version": {
+        "regex": "WooCommerce[\\s/]([\\d.]+)"
+      },
+      "implies": ["WordPress", "PHP"]
+    },
+    "PrestaShop": {
+      "category": "E-commerce",
+      "website": "https://prestashop.com",
+      "cookies": {
+        "PrestaShop-": ""
+      },
+      "html": [
+        "PrestaShop",
+        "/themes/default/",
+        "/modules/ps_"
+      ],
+      "meta": {
+        "generator": "PrestaShop"
+      },
+      "implies": ["PHP"]
+    },
+    "Laravel": {
+      "category": "Framework",
+      "website": "https://laravel.com",
+      "cookies": {
+        "laravel_session": "",
+        "XSRF-TOKEN": ""
+      },
+      "html": [
+        "csrf-token",
+        "laravel"
+      ],
+      "headers": {
+        "Set-Cookie": "laravel_session"
+      },
+      "implies": ["PHP"]
+    },
+    "Django": {
+      "category": "Framework",
+      "website": "https://djangoproject.com",
+      "cookies": {
+        "csrftoken": "",
+        "sessionid": ""
+      },
+      "html": [
+        "csrfmiddlewaretoken",
+        "__admin_media_prefix__"
+      ],
+      "implies": ["Python"]
+    },
+    "Ruby on Rails": {
+      "category": "Framework",
+      "website": "https://rubyonrails.org",
+      "headers": {
+        "X-Powered-By": "Phusion Passenger"
+      },
+      "cookies": {
+        "_session_id": ""
+      },
+      "html": [
+        "csrf-param",
+        "authenticity_token",
+        "data-turbolinks"
+      ],
+      "implies": ["Ruby"]
+    },
+    "ASP.NET": {
+      "category": "Framework",
+      "website": "https://dotnet.microsoft.com",
+      "headers": {
+        "X-AspNet-Version": "",
+        "X-Powered-By": "ASP.NET"
+      },
+      "cookies": {
+        "ASP.NET_SessionId": "",
+        ".ASPXAUTH": ""
+      },
+      "html": [
+        "__VIEWSTATE",
+        "__EVENTVALIDATION",
+        "aspnet"
+      ],
+      "version": {
+        "header": "X-AspNet-Version",
+        "regex": "ASP\\.NET[\\s/]([\\d.]+)"
+      },
+      "implies": ["IIS"]
+    },
+    "Express": {
+      "category": "Framework",
+      "website": "https://expressjs.com",
+      "headers": {
+        "X-Powered-By": "Express"
+      },
+      "cookies": {
+        "connect.sid": ""
+      },
+      "implies": ["Node.js"]
+    },
+    "Spring": {
+      "category": "Framework",
+      "website": "https://spring.io",
+      "cookies": {
+        "JSESSIONID": ""
+      },
+      "html": [
+        "org.springframework",
+        "_csrf"
+      ],
+      "headers": {
+        "X-Application-Context": ""
+      },
+      "implies": ["Java"]
+    },
+    "Flask": {
+      "category": "Framework",
+      "website": "https://flask.palletsprojects.com",
+      "cookies": {
+        "session": ""
+      },
+      "headers": {
+        "Server": "Werkzeug"
+      },
+      "implies": ["Python"]
+    },
+    "FastAPI": {
+      "category": "Framework",
+      "website": "https://fastapi.tiangolo.com",
+      "html": [
+        "fastapi",
+        "/docs",
+        "/redoc"
+      ],
+      "implies": ["Python"]
+    },
+    "Next.js": {
+      "category": "JavaScript Framework",
+      "website": "https://nextjs.org",
+      "headers": {
+        "X-Powered-By": "Next.js"
+      },
+      "html": [
+        "__NEXT_DATA__",
+        "_next/static",
+        "next/head"
+      ],
+      "scripts": [
+        "/_next/"
+      ],
+      "version": {
+        "regex": "Next\\.js[\\s/]([\\d.]+)"
+      },
+      "implies": ["React", "Node.js"]
+    },
+    "Nuxt.js": {
+      "category": "JavaScript Framework",
+      "website": "https://nuxtjs.org",
+      "html": [
+        "__NUXT__",
+        "_nuxt/",
+        "nuxt"
+      ],
+      "scripts": [
+        "/_nuxt/"
+      ],
+      "implies": ["Vue.js", "Node.js"]
+    },
+    "Gatsby": {
+      "category": "Static Site Generator",
+      "website": "https://gatsbyjs.com",
+      "headers": {
+        "X-Powered-By": "Gatsby"
+      },
+      "html": [
+        "gatsby",
+        "___gatsby"
+      ],
+      "scripts": [
+        "/static/",
+        "gatsby-"
+      ],
+      "implies": ["React", "Node.js"]
+    },
+    "React": {
+      "category": "JavaScript Framework",
+      "website": "https://reactjs.org",
+      "html": [
+        "react",
+        "data-reactroot",
+        "data-reactid",
+        "_reactRootContainer"
+      ],
+      "scripts": [
+        "react.production.min.js",
+        "react.development.js",
+        "react-dom"
+      ],
+      "version": {
+        "regex": "[Rr]eact[\\s@/-]v?([\\d.]+)"
+      }
+    },
+    "Vue.js": {
+      "category": "JavaScript Framework",
+      "website": "https://vuejs.org",
+      "html": [
+        "v-cloak",
+        "v-bind",
+        "v-on:",
+        "data-v-",
+        "Vue.js"
+      ],
+      "scripts": [
+        "vue.js",
+        "vue.min.js",
+        "vue.runtime",
+        "vue.global"
+      ],
+      "version": {
+        "regex": "[Vv]ue[\\s@/-]v?([\\d.]+)"
+      }
+    },
+    "Angular": {
+      "category": "JavaScript Framework",
+      "website": "https://angular.io",
+      "html": [
+        "ng-version",
+        "ng-app",
+        "ng-controller",
+        "ng-model",
+        "[ngClass]",
+        "*ngIf"
+      ],
+      "scripts": [
+        "angular.js",
+        "angular.min.js",
+        "@angular/core"
+      ],
+      "version": {
+        "regex": "[Aa]ngular[\\s@/-]v?([\\d.]+)"
+      }
+    },
+    "AngularJS": {
+      "category": "JavaScript Framework",
+      "website": "https://angularjs.org",
+      "html": [
+        "ng-app",
+        "ng-controller",
+        "ng-model",
+        "ng-bind"
+      ],
+      "scripts": [
+        "angular.js",
+        "angular.min.js"
+      ],
+      "version": {
+        "regex": "AngularJS[\\s/-]v?([\\d.]+)"
+      }
+    },
+    "Svelte": {
+      "category": "JavaScript Framework",
+      "website": "https://svelte.dev",
+      "html": [
+        "svelte",
+        "__svelte"
+      ],
+      "scripts": [
+        "svelte"
+      ]
+    },
+    "jQuery": {
+      "category": "JavaScript Library",
+      "website": "https://jquery.com",
+      "scripts": [
+        "jquery.js",
+        "jquery.min.js",
+        "jquery-"
+      ],
+      "html": [
+        "jQuery"
+      ],
+      "version": {
+        "regex": "[jJ]query[\\s/-]v?([\\d.]+)"
+      }
+    },
+    "jQuery UI": {
+      "category": "JavaScript Library",
+      "website": "https://jqueryui.com",
+      "scripts": [
+        "jquery-ui",
+        "jquery.ui"
+      ],
+      "html": [
+        "ui-widget",
+        "ui-dialog"
+      ],
+      "implies": ["jQuery"]
+    },
+    "Lodash": {
+      "category": "JavaScript Library",
+      "website": "https://lodash.com",
+      "scripts": [
+        "lodash.js",
+        "lodash.min.js"
+      ],
+      "version": {
+        "regex": "[Ll]odash[\\s/-]v?([\\d.]+)"
+      }
+    },
+    "Moment.js": {
+      "category": "JavaScript Library",
+      "website": "https://momentjs.com",
+      "scripts": [
+        "moment.js",
+        "moment.min.js",
+        "moment-with-locales"
+      ],
+      "version": {
+        "regex": "[Mm]oment[\\s/-]v?([\\d.]+)"
+      }
+    },
+    "Axios": {
+      "category": "JavaScript Library",
+      "website": "https://axios-http.com",
+      "scripts": [
+        "axios.js",
+        "axios.min.js"
+      ]
+    },
+    "D3.js": {
+      "category": "JavaScript Library",
+      "website": "https://d3js.org",
+      "scripts": [
+        "d3.js",
+        "d3.min.js",
+        "d3.v"
+      ],
+      "version": {
+        "regex": "d3[\\s/-]v?([\\d.]+)"
+      }
+    },
+    "Chart.js": {
+      "category": "JavaScript Library",
+      "website": "https://chartjs.org",
+      "scripts": [
+        "chart.js",
+        "chart.min.js"
+      ]
+    },
+    "Three.js": {
+      "category": "JavaScript Library",
+      "website": "https://threejs.org",
+      "scripts": [
+        "three.js",
+        "three.min.js"
+      ]
+    },
+    "Bootstrap": {
+      "category": "UI Framework",
+      "website": "https://getbootstrap.com",
+      "html": [
+        "bootstrap",
+        "class=\"btn btn-",
+        "class=\"container",
+        "class=\"row",
+        "class=\"col-"
+      ],
+      "scripts": [
+        "bootstrap.js",
+        "bootstrap.min.js",
+        "bootstrap.bundle"
+      ],
+      "css": [
+        "bootstrap.css",
+        "bootstrap.min.css"
+      ],
+      "version": {
+        "regex": "[Bb]ootstrap[\\s/-]v?([\\d.]+)"
+      }
+    },
+    "Tailwind CSS": {
+      "category": "UI Framework",
+      "website": "https://tailwindcss.com",
+      "html": [
+        "class=\"flex",
+        "class=\"grid",
+        "class=\"bg-",
+        "class=\"text-",
+        "class=\"p-",
+        "class=\"m-"
+      ],
+      "css": [
+        "tailwind"
+      ],
+      "version": {
+        "regex": "[Tt]ailwind[\\s/-]v?([\\d.]+)"
+      }
+    },
+    "Material UI": {
+      "category": "UI Framework",
+      "website": "https://mui.com",
+      "html": [
+        "MuiButton",
+        "MuiTypography",
+        "makeStyles",
+        "class=\"Mui"
+      ],
+      "implies": ["React"]
+    },
+    "Foundation": {
+      "category": "UI Framework",
+      "website": "https://get.foundation",
+      "html": [
+        "foundation",
+        "class=\"small-",
+        "class=\"medium-",
+        "class=\"large-"
+      ],
+      "scripts": [
+        "foundation.js",
+        "foundation.min.js"
+      ]
+    },
+    "Bulma": {
+      "category": "UI Framework",
+      "website": "https://bulma.io",
+      "html": [
+        "bulma",
+        "class=\"button is-",
+        "class=\"column is-",
+        "class=\"hero"
+      ],
+      "css": [
+        "bulma.css",
+        "bulma.min.css"
+      ]
+    },
+    "PHP": {
+      "category": "Programming Language",
+      "website": "https://php.net",
+      "headers": {
+        "X-Powered-By": "PHP",
+        "Server": "PHP"
+      },
+      "cookies": {
+        "PHPSESSID": ""
+      },
+      "version": {
+        "header": "X-Powered-By",
+        "regex": "PHP/([\\d.]+)"
+      }
+    },
+    "Python": {
+      "category": "Programming Language",
+      "website": "https://python.org",
+      "headers": {
+        "Server": "Python",
+        "X-Powered-By": "Python"
+      }
+    },
+    "Ruby": {
+      "category": "Programming Language",
+      "website": "https://ruby-lang.org",
+      "headers": {
+        "X-Powered-By": "Ruby",
+        "Server": "Ruby"
+      }
+    },
+    "Java": {
+      "category": "Programming Language",
+      "website": "https://java.com",
+      "cookies": {
+        "JSESSIONID": ""
+      },
+      "headers": {
+        "X-Powered-By": "Servlet"
+      }
+    },
+    "Node.js": {
+      "category": "Programming Language",
+      "website": "https://nodejs.org",
+      "headers": {
+        "X-Powered-By": "Express"
+      }
+    },
+    "Apache": {
+      "category": "Web Server",
+      "website": "https://httpd.apache.org",
+      "headers": {
+        "Server": "Apache"
+      },
+      "version": {
+        "header": "Server",
+        "regex": "Apache/([\\d.]+)"
+      }
+    },
+    "Nginx": {
+      "category": "Web Server",
+      "website": "https://nginx.org",
+      "headers": {
+        "Server": "nginx"
+      },
+      "version": {
+        "header": "Server",
+        "regex": "nginx/([\\d.]+)"
+      }
+    },
+    "IIS": {
+      "category": "Web Server",
+      "website": "https://www.iis.net",
+      "headers": {
+        "Server": "Microsoft-IIS"
+      },
+      "version": {
+        "header": "Server",
+        "regex": "Microsoft-IIS/([\\d.]+)"
+      },
+      "implies": ["Windows Server"]
+    },
+    "LiteSpeed": {
+      "category": "Web Server",
+      "website": "https://litespeedtech.com",
+      "headers": {
+        "Server": "LiteSpeed"
+      },
+      "version": {
+        "header": "Server",
+        "regex": "LiteSpeed/([\\d.]+)"
+      }
+    },
+    "Caddy": {
+      "category": "Web Server",
+      "website": "https://caddyserver.com",
+      "headers": {
+        "Server": "Caddy"
+      }
+    },
+    "OpenResty": {
+      "category": "Web Server",
+      "website": "https://openresty.org",
+      "headers": {
+        "Server": "openresty"
+      },
+      "version": {
+        "header": "Server",
+        "regex": "openresty/([\\d.]+)"
+      }
+    },
+    "Windows Server": {
+      "category": "Operating System",
+      "website": "https://microsoft.com",
+      "headers": {
+        "Server": "Microsoft"
+      }
+    },
+    "Ubuntu": {
+      "category": "Operating System",
+      "website": "https://ubuntu.com",
+      "headers": {
+        "Server": "Ubuntu"
+      }
+    },
+    "Debian": {
+      "category": "Operating System",
+      "website": "https://debian.org",
+      "headers": {
+        "Server": "Debian"
+      }
+    },
+    "CentOS": {
+      "category": "Operating System",
+      "website": "https://centos.org",
+      "headers": {
+        "Server": "CentOS"
+      }
+    },
+    "MySQL": {
+      "category": "Database",
+      "website": "https://mysql.com"
+    },
+    "PostgreSQL": {
+      "category": "Database",
+      "website": "https://postgresql.org"
+    },
+    "MongoDB": {
+      "category": "Database",
+      "website": "https://mongodb.com",
+      "html": [
+        "mongodb"
+      ]
+    },
+    "Redis": {
+      "category": "Cache",
+      "website": "https://redis.io"
+    },
+    "Memcached": {
+      "category": "Cache",
+      "website": "https://memcached.org"
+    },
+    "Varnish": {
+      "category": "Cache",
+      "website": "https://varnish-cache.org",
+      "headers": {
+        "X-Varnish": "",
+        "Via": "varnish"
+      },
+      "version": {
+        "regex": "varnish[\\s/]([\\d.]+)"
+      }
+    },
+    "Cloudflare": {
+      "category": "CDN",
+      "website": "https://cloudflare.com",
+      "headers": {
+        "CF-RAY": "",
+        "Server": "cloudflare",
+        "CF-Cache-Status": ""
+      },
+      "cookies": {
+        "__cfduid": "",
+        "__cf_bm": ""
+      }
+    },
+    "Fastly": {
+      "category": "CDN",
+      "website": "https://fastly.com",
+      "headers": {
+        "X-Served-By": "",
+        "X-Cache": "",
+        "Via": "Fastly"
+      }
+    },
+    "Amazon CloudFront": {
+      "category": "CDN",
+      "website": "https://aws.amazon.com/cloudfront",
+      "headers": {
+        "X-Amz-Cf-Id": "",
+        "X-Amz-Cf-Pop": "",
+        "Via": "CloudFront"
+      }
+    },
+    "Akamai": {
+      "category": "CDN",
+      "website": "https://akamai.com",
+      "headers": {
+        "X-Akamai-Transformed": "",
+        "Akamai-Origin-Hop": ""
+      },
+      "cookies": {
+        "ak_bmsc": ""
+      }
+    },
+    "KeyCDN": {
+      "category": "CDN",
+      "website": "https://keycdn.com",
+      "headers": {
+        "Server": "keycdn"
+      }
+    },
+    "jsDelivr": {
+      "category": "CDN",
+      "website": "https://jsdelivr.com",
+      "scripts": [
+        "cdn.jsdelivr.net"
+      ]
+    },
+    "cdnjs": {
+      "category": "CDN",
+      "website": "https://cdnjs.com",
+      "scripts": [
+        "cdnjs.cloudflare.com"
+      ]
+    },
+    "unpkg": {
+      "category": "CDN",
+      "website": "https://unpkg.com",
+      "scripts": [
+        "unpkg.com"
+      ]
+    },
+    "AWS WAF": {
+      "category": "WAF",
+      "website": "https://aws.amazon.com/waf",
+      "headers": {
+        "X-Amzn-RequestId": ""
+      }
+    },
+    "ModSecurity": {
+      "category": "WAF",
+      "website": "https://modsecurity.org",
+      "headers": {
+        "Server": "mod_security"
+      },
+      "html": [
+        "mod_security",
+        "NOYB"
+      ]
+    },
+    "Sucuri": {
+      "category": "WAF",
+      "website": "https://sucuri.net",
+      "headers": {
+        "X-Sucuri-ID": "",
+        "Server": "Sucuri"
+      }
+    },
+    "Imperva": {
+      "category": "WAF",
+      "website": "https://imperva.com",
+      "headers": {
+        "X-Iinfo": ""
+      },
+      "cookies": {
+        "incap_ses_": "",
+        "visid_incap_": ""
+      }
+    },
+    "Wordfence": {
+      "category": "Security",
+      "website": "https://wordfence.com",
+      "html": [
+        "wordfence",
+        "/wp-content/plugins/wordfence/"
+      ],
+      "implies": ["WordPress"]
+    },
+    "Google Analytics": {
+      "category": "Analytics",
+      "website": "https://analytics.google.com",
+      "html": [
+        "google-analytics.com/analytics.js",
+        "gtag/js",
+        "GoogleAnalyticsObject",
+        "UA-"
+      ],
+      "scripts": [
+        "google-analytics.com",
+        "googletagmanager.com/gtag"
+      ]
+    },
+    "Google Tag Manager": {
+      "category": "Tag Manager",
+      "website": "https://tagmanager.google.com",
+      "html": [
+        "googletagmanager.com/gtm.js",
+        "GTM-"
+      ],
+      "scripts": [
+        "googletagmanager.com"
+      ]
+    },
+    "Facebook Pixel": {
+      "category": "Analytics",
+      "website": "https://facebook.com/business",
+      "html": [
+        "connect.facebook.net",
+        "fbq("
+      ],
+      "scripts": [
+        "connect.facebook.net/en_US/fbevents.js"
+      ]
+    },
+    "Hotjar": {
+      "category": "Analytics",
+      "website": "https://hotjar.com",
+      "html": [
+        "hotjar.com",
+        "hjid"
+      ],
+      "scripts": [
+        "static.hotjar.com"
+      ]
+    },
+    "Mixpanel": {
+      "category": "Analytics",
+      "website": "https://mixpanel.com",
+      "scripts": [
+        "cdn.mxpnl.com",
+        "mixpanel"
+      ]
+    },
+    "Segment": {
+      "category": "Analytics",
+      "website": "https://segment.com",
+      "scripts": [
+        "cdn.segment.com",
+        "analytics.js"
+      ]
+    },
+    "Matomo": {
+      "category": "Analytics",
+      "website": "https://matomo.org",
+      "html": [
+        "matomo.js",
+        "piwik.js",
+        "_paq.push"
+      ]
+    },
+    "Google Fonts": {
+      "category": "Font",
+      "website": "https://fonts.google.com",
+      "html": [
+        "fonts.googleapis.com",
+        "fonts.gstatic.com"
+      ],
+      "css": [
+        "fonts.googleapis.com"
+      ]
+    },
+    "Font Awesome": {
+      "category": "Font",
+      "website": "https://fontawesome.com",
+      "html": [
+        "font-awesome",
+        "fontawesome",
+        "class=\"fa ",
+        "class=\"fas ",
+        "class=\"fab "
+      ],
+      "css": [
+        "font-awesome",
+        "fontawesome"
+      ],
+      "version": {
+        "regex": "[Ff]ont[- ]?[Aa]wesome[\\s/-]v?([\\d.]+)"
+      }
+    },
+    "Adobe Fonts": {
+      "category": "Font",
+      "website": "https://fonts.adobe.com",
+      "html": [
+        "use.typekit.net"
+      ],
+      "css": [
+        "use.typekit.net"
+      ]
+    },
+    "Stripe": {
+      "category": "Payment",
+      "website": "https://stripe.com",
+      "html": [
+        "js.stripe.com",
+        "Stripe("
+      ],
+      "scripts": [
+        "js.stripe.com"
+      ]
+    },
+    "PayPal": {
+      "category": "Payment",
+      "website": "https://paypal.com",
+      "html": [
+        "paypal.com",
+        "paypalobjects.com"
+      ],
+      "scripts": [
+        "paypal.com/sdk"
+      ]
+    },
+    "Yoast SEO": {
+      "category": "SEO",
+      "website": "https://yoast.com",
+      "html": [
+        "yoast-schema-graph",
+        "This site is optimized with the Yoast SEO"
+      ],
+      "implies": ["WordPress"]
+    },
+    "All in One SEO": {
+      "category": "SEO",
+      "website": "https://aioseo.com",
+      "html": [
+        "All in One SEO",
+        "aioseo"
+      ],
+      "implies": ["WordPress"]
+    },
+    "Rank Math": {
+      "category": "SEO",
+      "website": "https://rankmath.com",
+      "html": [
+        "rank-math",
+        "Rank Math"
+      ],
+      "implies": ["WordPress"]
+    },
+    "Amazon Web Services": {
+      "category": "PaaS",
+      "website": "https://aws.amazon.com",
+      "headers": {
+        "X-Amz-": ""
+      }
+    },
+    "Google Cloud": {
+      "category": "PaaS",
+      "website": "https://cloud.google.com",
+      "headers": {
+        "Via": "google"
+      }
+    },
+    "Microsoft Azure": {
+      "category": "PaaS",
+      "website": "https://azure.microsoft.com",
+      "headers": {
+        "X-Azure-Ref": ""
+      }
+    },
+    "Heroku": {
+      "category": "PaaS",
+      "website": "https://heroku.com",
+      "headers": {
+        "Via": "vegur"
+      }
+    },
+    "Vercel": {
+      "category": "Hosting",
+      "website": "https://vercel.com",
+      "headers": {
+        "X-Vercel-Id": "",
+        "Server": "Vercel"
+      }
+    },
+    "Netlify": {
+      "category": "Hosting",
+      "website": "https://netlify.com",
+      "headers": {
+        "X-NF-Request-ID": "",
+        "Server": "Netlify"
+      }
+    },
+    "GitHub Pages": {
+      "category": "Hosting",
+      "website": "https://pages.github.com",
+      "headers": {
+        "Server": "GitHub.com"
+      }
+    },
+    "DigitalOcean": {
+      "category": "Hosting",
+      "website": "https://digitalocean.com"
+    },
+    "reCAPTCHA": {
+      "category": "Security",
+      "website": "https://google.com/recaptcha",
+      "html": [
+        "google.com/recaptcha",
+        "g-recaptcha",
+        "grecaptcha"
+      ],
+      "scripts": [
+        "google.com/recaptcha"
+      ]
+    },
+    "hCaptcha": {
+      "category": "Security",
+      "website": "https://hcaptcha.com",
+      "html": [
+        "hcaptcha.com",
+        "h-captcha"
+      ],
+      "scripts": [
+        "hcaptcha.com"
+      ]
+    },
+    "Disqus": {
+      "category": "Comment",
+      "website": "https://disqus.com",
+      "html": [
+        "disqus.com",
+        "disqus_thread"
+      ],
+      "scripts": [
+        "disqus.com"
+      ]
+    },
+    "Intercom": {
+      "category": "Live Chat",
+      "website": "https://intercom.com",
+      "html": [
+        "intercom",
+        "widget.intercom.io"
+      ],
+      "scripts": [
+        "widget.intercom.io"
+      ]
+    },
+    "Zendesk Chat": {
+      "category": "Live Chat",
+      "website": "https://zendesk.com",
+      "html": [
+        "zopim",
+        "zendesk"
+      ],
+      "scripts": [
+        "static.zdassets.com"
+      ]
+    },
+    "Crisp": {
+      "category": "Live Chat",
+      "website": "https://crisp.chat",
+      "html": [
+        "crisp.chat"
+      ],
+      "scripts": [
+        "client.crisp.chat"
+      ]
+    },
+    "Tawk.to": {
+      "category": "Live Chat",
+      "website": "https://tawk.to",
+      "html": [
+        "tawk.to"
+      ],
+      "scripts": [
+        "embed.tawk.to"
+      ]
+    },
+    "Webpack": {
+      "category": "Build Tool",
+      "website": "https://webpack.js.org",
+      "html": [
+        "webpackJsonp",
+        "__webpack_require__"
+      ]
+    },
+    "Vite": {
+      "category": "Build Tool",
+      "website": "https://vitejs.dev",
+      "html": [
+        "@vite",
+        "vite"
+      ]
+    },
+    "Parcel": {
+      "category": "Build Tool",
+      "website": "https://parceljs.org",
+      "html": [
+        "parcelRequire"
+      ]
+    },
+    "Rollup": {
+      "category": "Build Tool",
+      "website": "https://rollupjs.org"
+    },
+    "Elasticsearch": {
+      "category": "Search",
+      "website": "https://elastic.co",
+      "html": [
+        "elasticsearch"
+      ]
+    },
+    "Algolia": {
+      "category": "Search",
+      "website": "https://algolia.com",
+      "html": [
+        "algolia",
+        "algoliasearch"
+      ],
+      "scripts": [
+        "cdn.jsdelivr.net/algoliasearch"
+      ]
+    },
+    "YouTube": {
+      "category": "Video",
+      "website": "https://youtube.com",
+      "html": [
+        "youtube.com/embed",
+        "youtube-nocookie.com"
+      ]
+    },
+    "Vimeo": {
+      "category": "Video",
+      "website": "https://vimeo.com",
+      "html": [
+        "player.vimeo.com"
+      ]
+    },
+    "Wistia": {
+      "category": "Video",
+      "website": "https://wistia.com",
+      "html": [
+        "wistia.com",
+        "wistia-video"
+      ],
+      "scripts": [
+        "fast.wistia.com"
+      ]
+    }
+  }
+}

@@ -1,0 +1,197 @@
+{
+  "report_info": {
+    "generator": "WebVulnPro",
+    "version": "2.0.0",
+    "generated_at": "2026-07-18T00:24:38.324784",
+    "format": "JSON"
+  },
+  "summary": {
+    "targets_scanned": 1,
+    "total_vulnerabilities": 8,
+    "by_severity": {
+      "CRITICAL": 0,
+      "HIGH": 2,
+      "MEDIUM": 4,
+      "LOW": 1,
+      "INFO": 1
+    },
+    "by_category": {
+      "HTTP Headers": 7,
+      "SSL/TLS": 1
+    },
+    "risk_score": 66,
+    "technologies": [
+      "Cloudflare"
+    ],
+    "technologies_by_category": {
+      "CDN": [
+        "Cloudflare"
+      ]
+    },
+    "generated_at": "2026-07-18T00:24:38.324784"
+  },
+  "scan_results": [
+    {
+      "target": "https://example.com",
+      "start_time": "2026-07-18T00:24:25.335490",
+      "end_time": "2026-07-18T00:24:38.299936",
+      "duration_seconds": 12.964446,
+      "risk_score": 66,
+      "vulnerability_counts": {
+        "CRITICAL": 0,
+        "HIGH": 2,
+        "MEDIUM": 4,
+        "LOW": 1,
+        "INFO": 1
+      },
+      "vulnerabilities": [
+        {
+          "title": "Missing HTTP Strict Transport Security (HSTS)",
+          "severity": "HIGH",
+          "cvss_score": 7.5,
+          "description": "The Strict-Transport-Security header is missing. This allows attackers to perform SSL stripping attacks.",
+          "remediation": "Add 'Strict-Transport-Security: max-age=31536000; includeSubDomains; preload' header.",
+          "evidence": "Header 'strict-transport-security' not found in response",
+          "category": "HTTP Headers",
+          "cwe_id": "CWE-319",
+          "cve_id": null,
+          "references": [
+            "https://owasp.org/www-project-secure-headers/",
+            "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/strict-transport-security"
+          ],
+          "request": null,
+          "response": null
+        },
+        {
+          "title": "Missing Content Security Policy (CSP)",
+          "severity": "HIGH",
+          "cvss_score": 7.1,
+          "description": "No Content-Security-Policy header found. This makes the application vulnerable to XSS and data injection attacks.",
+          "remediation": "Implement a strict CSP. Start with: Content-Security-Policy: default-src 'self'; script-src 'self'; object-src 'none'",
+          "evidence": "Header 'content-security-policy' not found in response",
+          "category": "HTTP Headers",
+          "cwe_id": "CWE-1021",
+          "cve_id": null,
+          "references": [
+            "https://owasp.org/www-project-secure-headers/",
+            "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/content-security-policy"
+          ],
+          "request": null,
+          "response": null
+        },
+        {
+          "title": "Missing X-Frame-Options Header",
+          "severity": "MEDIUM",
+          "cvss_score": 5.4,
+          "description": "X-Frame-Options header is missing. The site may be vulnerable to clickjacking attacks.",
+          "remediation": "Add 'X-Frame-Options: DENY' or 'X-Frame-Options: SAMEORIGIN' header.",
+          "evidence": "Header 'x-frame-options' not found in response",
+          "category": "HTTP Headers",
+          "cwe_id": "CWE-1021",
+          "cve_id": null,
+          "references": [
+            "https://owasp.org/www-project-secure-headers/",
+            "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/x-frame-options"
+          ],
+          "request": null,
+          "response": null
+        },
+        {
+          "title": "Missing X-Content-Type-Options Header",
+          "severity": "MEDIUM",
+          "cvss_score": 5.3,
+          "description": "X-Content-Type-Options header is missing. Browsers may MIME-sniff responses, potentially executing malicious content.",
+          "remediation": "Add 'X-Content-Type-Options: nosniff' header.",
+          "evidence": "Header 'x-content-type-options' not found in response",
+          "category": "HTTP Headers",
+          "cwe_id": "CWE-693",
+          "cve_id": null,
+          "references": [
+            "https://owasp.org/www-project-secure-headers/",
+            "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/x-content-type-options"
+          ],
+          "request": null,
+          "response": null
+        },
+        {
+          "title": "Missing Referrer-Policy Header",
+          "severity": "MEDIUM",
+          "cvss_score": 4.3,
+          "description": "Referrer-Policy header is missing. Sensitive information may leak via the Referer header.",
+          "remediation": "Add 'Referrer-Policy: strict-origin-when-cross-origin' or 'no-referrer' header.",
+          "evidence": "Header 'referrer-policy' not found in response",
+          "category": "HTTP Headers",
+          "cwe_id": "CWE-200",
+          "cve_id": null,
+          "references": [
+            "https://owasp.org/www-project-secure-headers/",
+            "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/referrer-policy"
+          ],
+          "request": null,
+          "response": null
+        },
+        {
+          "title": "Missing Permissions-Policy Header",
+          "severity": "MEDIUM",
+          "cvss_score": 4.3,
+          "description": "Permissions-Policy (formerly Feature-Policy) header is missing. Browser features are not restricted.",
+          "remediation": "Add Permissions-Policy header to restrict features: Permissions-Policy: geolocation=(), camera=(), microphone=()",
+          "evidence": "Header 'permissions-policy' not found in response",
+          "category": "HTTP Headers",
+          "cwe_id": "CWE-16",
+          "cve_id": null,
+          "references": [
+            "https://owasp.org/www-project-secure-headers/",
+            "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/permissions-policy"
+          ],
+          "request": null,
+          "response": null
+        },
+        {
+          "title": "Missing or Weak Cache-Control Header",
+          "severity": "LOW",
+          "cvss_score": 3.7,
+          "description": "Cache-Control header is missing or misconfigured. Sensitive data may be cached by browsers or proxies.",
+          "remediation": "For sensitive pages, add 'Cache-Control: no-store, no-cache, must-revalidate, private'",
+          "evidence": "Header 'cache-control' not found in response",
+          "category": "HTTP Headers",
+          "cwe_id": "CWE-525",
+          "cve_id": null,
+          "references": [
+            "https://owasp.org/www-project-secure-headers/",
+            "https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/cache-control"
+          ],
+          "request": null,
+          "response": null
+        },
+        {
+          "title": "Certificate Information Unavailable",
+          "severity": "INFO",
+          "cvss_score": 0.0,
+          "description": "Could not retrieve certificate details for analysis.",
+          "remediation": "Certificate may be valid but details couldn't be parsed.",
+          "evidence": "Host: example.com:443",
+          "category": "SSL/TLS",
+          "cwe_id": null,
+          "cve_id": null,
+          "references": [],
+          "request": null,
+          "response": null
+        }
+      ],
+      "technologies": [
+        {
+          "name": "Cloudflare",
+          "version": null,
+          "category": "CDN",
+          "confidence": 1.0,
+          "evidence": "Header: CF-RAY, Header: Server, Header: CF-Cache-Status",
+          "website": "https://cloudflare.com",
+          "cpe": null
+        }
+      ],
+      "status_code": 200,
+      "error": null
+    }
+  ]
+}

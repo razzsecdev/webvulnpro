@@ -1,0 +1,132 @@
+==================================================================
+  WEBVULNPRO — QUICK START GUIDE
+  Enterprise Web Vulnerability Assessment Tool (v2.0.0)
+==================================================================
+
+WHAT IT DOES
+------------------------------------------------------------------
+A standalone Python CLI that runs 150+ security checks on web
+targets: OWASP Top 10 detection, security headers, SSL/TLS
+assessment, path enumeration, subdomain enumeration, CMS scanning,
+and more. Produces PDF, JSON, or HTML reports.
+
+  *** Authorized security testing only. Get permission before
+      scanning any system you do not own. ***
+
+==================================================================
+ 1. INSTALLATION
+==================================================================
+  git clone https://github.com/razzsecdev/webvulnpro.git
+  cd webvulnpro
+
+  pip install -e .
+      -- or --
+  pip install -r requirements.txt
+
+  Requirements: Python 3.9+, aiohttp, typer, rich, reportlab
+
+==================================================================
+ 2. QUICK START
+==================================================================
+  # Interactive menu mode (best for beginners)
+  python -m webvulnpro
+
+  # Single target scan
+  python -m webvulnpro scan https://example.com
+
+  # Scan and save a PDF report
+  python -m webvulnpro scan https://example.com --output report.pdf
+
+  # Deep scan (all advanced modules)
+  python -m webvulnpro deep https://example.com --output deep_report.pdf
+
+  # Multiple targets from a file
+  python -m webvulnpro scan targets.txt --profile comprehensive --threads 50
+
+  # Individual checks
+  python -m webvulnpro headers https://example.com
+  python -m webvulnpro ssl https://example.com
+  python -m webvulnpro paths https://example.com --wordlist custom.txt
+
+==================================================================
+ 3. CORE COMMANDS
+==================================================================
+  scan <targets>     Full scan
+    -o, --output       Output file (.json / .html / .pdf)
+    -p, --profile      quick | standard | comprehensive | deep |
+                       passive | stealth | api | cms
+    -t, --threads      Concurrent scans (default 20)
+    -w, --wordlist     Custom wordlist for path enumeration
+    -s, --signatures   Custom vulnerability signatures file
+    --no-paths         Skip path enumeration
+    --no-ssl           Skip SSL/TLS checks
+    -q, --quiet        Minimal output
+
+  deep <targets>      Standard checks + subdomain enum, JS secret
+                       extraction, CORS testing, host header
+                       injection, API discovery, CMS checks,
+                       backup file discovery, VCS exposure
+    -o, --output       Output file (.json / .html / .pdf)
+    -t, --threads      Concurrent scans (default 5)
+
+  headers <url>        HTTP security header scan
+  ssl <url>             SSL/TLS configuration scan
+  paths <url>           Path/directory enumeration
+  profiles               List available scan profiles
+
+==================================================================
+ 4. SCAN PROFILES
+==================================================================
+  quick          Fast essential checks (headers, SSL)
+  standard       Balanced scan (+ paths, vuln checks)
+  comprehensive  Full thorough scan
+  deep           All modules + advanced checks
+  passive        Non-intrusive only
+  stealth        Low-profile passive
+  api            REST/GraphQL focused
+  cms            CMS vulnerability focused
+
+==================================================================
+ 5. OUTPUT FORMATS
+==================================================================
+  JSON   Machine-readable summary + full findings
+  PDF    Executive summary, risk score, remediation guidance
+  HTML   Interactive dashboard with filterable findings
+
+  Reports are saved under: Reports/<target>/report_<timestamp>.<ext>
+
+==================================================================
+ 6. CUSTOM WORDLISTS & SIGNATURES
+==================================================================
+  Custom path wordlist:
+    python -m webvulnpro paths https://example.com --wordlist custom-paths.txt
+
+  Custom vulnerability signatures (JSON):
+    python -m webvulnpro scan https://example.com --signatures custom-sigs.json
+
+==================================================================
+ 7. EXIT CODES
+==================================================================
+    0    Success, no critical/high findings
+    1    High severity findings detected
+    2    Critical severity findings detected
+  130    Interrupted by user (Ctrl+C)
+
+==================================================================
+ 8. SAFE TEST TARGETS (for practice)
+==================================================================
+  python -m webvulnpro scan https://scanme.nmap.org
+  python -m webvulnpro scan http://testphp.vulnweb.com
+  python -m webvulnpro scan https://demo.testfire.net
+
+==================================================================
+ 9. NOTES
+==================================================================
+  - License: MIT
+  - Full docs: https://github.com/razzsecdev/webvulnpro/wiki
+  - Issues: https://github.com/razzsecdev/webvulnpro/issues
+
+  DISCLAIMER: For authorized security testing only. Always obtain
+  proper authorization before scanning any system you do not own
+  or control.
+==================================================================

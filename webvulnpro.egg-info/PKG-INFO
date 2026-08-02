@@ -1,0 +1,559 @@
+Metadata-Version: 2.4
+Name: webvulnpro
+Version: 1.0.0
+Summary: Enterprise Web Vulnerability Assessment Tool
+Home-page: https://github.com/razzsecdev/webvulnpro
+Author: WebVulnPro Team
+Author-email: WebVulnPro Team <security@webvulnpro.io>
+License: MIT
+Project-URL: Homepage, https://github.com/razzsecdev/webvulnpro
+Project-URL: Documentation, https://github.com/razzsecdev/webvulnpro#readme
+Project-URL: Repository, https://github.com/razzsecdev/webvulnpro
+Project-URL: Issues, https://github.com/razzsecdev/webvulnpro/issues
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: Information Technology
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Security
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
+Requires-Dist: aiohttp>=3.9.0
+Requires-Dist: typer>=0.9.0
+Requires-Dist: click>=8.0.0
+Requires-Dist: rich>=13.0.0
+Requires-Dist: reportlab>=4.0.0
+Requires-Dist: urllib3>=2.0.0
+Requires-Dist: certifi>=2023.0.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0.0; extra == "dev"
+Requires-Dist: pytest-asyncio>=0.21.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0.0; extra == "dev"
+Requires-Dist: black>=23.0.0; extra == "dev"
+Requires-Dist: mypy>=1.0.0; extra == "dev"
+Requires-Dist: ruff>=0.1.0; extra == "dev"
+Dynamic: author
+Dynamic: home-page
+Dynamic: requires-python
+
+<div align="center">
+
+<img src="https://img.shields.io/badge/-WebVulnPro-1a1a2e?style=for-the-badge&labelColor=1a1a2e&color=e94560" alt="WebVulnPro" height="60"/>
+
+# WebVulnPro
+
+### Enterprise Web Vulnerability Assessment Tool — Advanced Edition
+
+<img src="https://img.shields.io/badge/version-2.0.0-e94560?style=flat-square" alt="version"/>
+<img src="https://img.shields.io/badge/python-3.9%2B-3776AB?style=flat-square&logo=python&logoColor=white" alt="python"/>
+<img src="https://img.shields.io/badge/license-MIT-blue?style=flat-square" alt="license"/>
+<img src="https://img.shields.io/badge/checks-150%2B-success?style=flat-square" alt="checks"/>
+<img src="https://img.shields.io/badge/PRs-welcome-brightgreen?style=flat-square" alt="PRs welcome"/>
+
+A production-ready, standalone CLI tool for comprehensive web vulnerability scanning and professional reporting. WebVulnPro performs **150+ real security checks** including OWASP Top 10 detection, deep scanning modules, security header analysis, SSL/TLS assessment, and advanced vulnerability detection.
+
+</div>
+
+---
+
+## <img src="https://api.iconify.design/lucide:sparkles.svg?color=%23e94560" width="22" height="22" valign="middle"/> Features
+
+### <img src="https://api.iconify.design/lucide:radar.svg?color=%23e94560" width="18" height="18" valign="middle"/> Core Scanning
+
+| | |
+|---|---|
+| <img src="https://api.iconify.design/lucide:shield-check.svg?color=%23e94560" width="16"/> | **150+ Real Vulnerability Checks** — No simulations, actual security testing |
+| <img src="https://api.iconify.design/lucide:list-checks.svg?color=%23e94560" width="16"/> | **OWASP Top 10 Coverage** — XSS, SQLi, Open Redirect, CSRF detection |
+| <img src="https://api.iconify.design/lucide:file-code-2.svg?color=%23e94560" width="16"/> | **Security Headers Analysis** — 25+ HTTP header security checks |
+| <img src="https://api.iconify.design/lucide:lock.svg?color=%23e94560" width="16"/> | **SSL/TLS Assessment** — Certificate validity, protocol versions, cipher strength |
+| <img src="https://api.iconify.design/lucide:folder-search.svg?color=%23e94560" width="16"/> | **Path Enumeration** — 500+ paths for sensitive file/directory discovery |
+| <img src="https://api.iconify.design/lucide:fingerprint.svg?color=%23e94560" width="16"/> | **Technology Fingerprinting** — CMS, frameworks, WAFs, server detection |
+
+### <img src="https://api.iconify.design/lucide:layers.svg?color=%230f3460" width="18" height="18" valign="middle"/> Advanced Deep Scanning
+
+| | |
+|---|---|
+| <img src="https://api.iconify.design/lucide:network.svg?color=%230f3460" width="16"/> | **Subdomain Enumeration** — DNS brute-force and Certificate Transparency logs |
+| <img src="https://api.iconify.design/lucide:braces.svg?color=%230f3460" width="16"/> | **JavaScript Analysis** — Secret/API key extraction, endpoint discovery, DOM XSS detection |
+| <img src="https://api.iconify.design/lucide:globe.svg?color=%230f3460" width="16"/> | **CORS Misconfiguration** — Cross-origin policy testing |
+| <img src="https://api.iconify.design/lucide:file-warning.svg?color=%230f3460" width="16"/> | **Host Header Injection** — Header manipulation vulnerability testing |
+| <img src="https://api.iconify.design/lucide:split.svg?color=%230f3460" width="16"/> | **CRLF Injection** — HTTP response splitting detection |
+| <img src="https://api.iconify.design/lucide:server-crash.svg?color=%230f3460" width="16"/> | **Subdomain Takeover** — Dangling DNS and unclaimed resource detection |
+| <img src="https://api.iconify.design/lucide:layout-template.svg?color=%230f3460" width="16"/> | **CMS Vulnerability Scanning** — WordPress, Drupal, Joomla, Laravel, Django |
+| <img src="https://api.iconify.design/lucide:archive.svg?color=%230f3460" width="16"/> | **Backup File Discovery** — Exposed configuration and backup files |
+| <img src="https://api.iconify.design/lucide:git-branch.svg?color=%230f3460" width="16"/> | **Git/VCS Exposure** — Repository and version control exposure |
+| <img src="https://api.iconify.design/lucide:shield.svg?color=%230f3460" width="16"/> | **WAF/CDN Detection** — Identify security appliances |
+| <img src="https://api.iconify.design/lucide:database.svg?color=%230f3460" width="16"/> | **GraphQL Security** — Introspection and verbose error testing |
+| <img src="https://api.iconify.design/lucide:route.svg?color=%230f3460" width="16"/> | **API Endpoint Discovery** — REST/GraphQL endpoint enumeration |
+
+### <img src="https://api.iconify.design/lucide:monitor.svg?color=%2316213e" width="18" height="18" valign="middle"/> Output & Interface
+
+- <img src="https://api.iconify.design/lucide:terminal.svg?width=14" width="14"/> **Interactive Mode** — Rich TUI with menu-driven scanning
+- <img src="https://api.iconify.design/lucide:file-output.svg?width=14" width="14"/> **Professional Reports** — PDF, JSON, and HTML output formats
+- <img src="https://api.iconify.design/lucide:folder-tree.svg?width=14" width="14"/> **Organized Report Storage** — Reports saved in `Reports/<target>/` structure
+- <img src="https://api.iconify.design/lucide:gauge.svg?width=14" width="14"/> **High Performance** — Async architecture supporting 1000+ targets
+- <img src="https://api.iconify.design/lucide:shield-check.svg?width=14" width="14"/> **Safe Scanning** — Non-destructive, passive analysis
+
+---
+
+## <img src="https://api.iconify.design/lucide:download.svg?color=%23e94560" width="22" height="22" valign="middle"/> Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/razzsecdev/webvulnpro.git
+cd webvulnpro
+
+# Install with pip (editable mode for development)
+pip install -e .
+
+# Or install dependencies directly
+pip install -r requirements.txt
+```
+
+## <img src="https://api.iconify.design/lucide:rocket.svg?color=%23e94560" width="22" height="22" valign="middle"/> Quick Start
+
+```bash
+# Launch interactive mode (recommended for beginners)
+python -m webvulnpro
+
+# Single target scan
+python -m webvulnpro scan https://example.com
+
+# Scan with PDF report
+python -m webvulnpro scan https://example.com --output report.pdf
+
+# Deep scan with all advanced modules
+python -m webvulnpro deep https://example.com --output deep_report.pdf
+
+# Multiple targets from file
+python -m webvulnpro scan targets.txt --profile comprehensive --threads 50
+
+# Specific scans
+python webvulnpro headers https://example.com
+python webvulnpro ssl https://example.com
+python webvulnpro paths https://example.com --wordlist custom.txt
+```
+
+---
+
+## <img src="https://api.iconify.design/lucide:square-terminal.svg?color=%23e94560" width="22" height="22" valign="middle"/> CLI Commands
+
+### <img src="https://api.iconify.design/lucide:mouse-pointer-click.svg?width=18" width="18" valign="middle"/> Interactive Mode
+
+```bash
+# Launch interactive TUI (default when no command provided)
+python -m webvulnpro
+webvulnpro -m interactive
+```
+
+The interactive mode provides a menu-driven interface with options for:
+- Quick, Standard, Deep, Custom, and Stealth scans
+- Specialized scans (API Security, CMS Security, Subdomain Discovery)
+- Individual modules (Headers, SSL, Paths, JavaScript Analysis, CORS Testing)
+- Advanced tests (Open Redirect, Host Header Injection, CRLF, Backup Files, VCS Exposure)
+- Report viewing and management
+
+### <img src="https://api.iconify.design/lucide:scan-search.svg?width=18" width="18" valign="middle"/> Full Scan
+
+```bash
+python -m webvulnpro scan <targets> [OPTIONS]
+
+Arguments:
+  targets           Target URL(s) or path to file with URLs
+
+Options:
+  -o, --output      Output file (supports .json, .html, .pdf)
+  -p, --profile     Scan profile: quick, standard, comprehensive, deep, passive, stealth, api, cms
+  -t, --threads     Concurrent scans (default: 20)
+  -w, --wordlist    Custom wordlist for path enumeration
+  -s, --signatures  Custom vulnerability signatures file
+  --no-paths        Skip path enumeration
+  --no-ssl          Skip SSL/TLS checks
+  -q, --quiet       Minimal output
+```
+
+### <img src="https://api.iconify.design/lucide:layers-3.svg?width=18" width="18" valign="middle"/> Deep Scan
+
+```bash
+python -m webvulnpro deep <targets> [OPTIONS]
+
+Arguments:
+  targets           Target URL(s) or path to file with URLs
+
+Options:
+  -o, --output      Output file (supports .json, .html, .pdf)
+  -t, --threads     Concurrent scans (default: 5, lower for thorough testing)
+  -q, --quiet       Minimal output
+```
+
+Deep scan includes all standard checks plus:
+- Subdomain enumeration and takeover detection
+- JavaScript secret extraction
+- CORS misconfiguration testing
+- Host header injection testing
+- API endpoint discovery
+- CMS-specific vulnerability checks
+- Backup file discovery
+- VCS exposure detection
+
+### <img src="https://api.iconify.design/lucide:file-text.svg?width=18" width="18" valign="middle"/> HTTP Headers Scan
+
+```bash
+python -m webvulnpro headers https://example.com
+python -m webvulnpro headers https://example.com --output headers.json
+```
+
+### <img src="https://api.iconify.design/lucide:lock-keyhole.svg?width=18" width="18" valign="middle"/> SSL/TLS Scan
+
+```bash
+python -m webvulnpro ssl https://example.com
+python -m webvulnpro ssl https://example.com --output ssl-report.pdf
+```
+
+### <img src="https://api.iconify.design/lucide:folder-search-2.svg?width=18" width="18" valign="middle"/> Path Enumeration
+
+```bash
+python -m webvulnpro paths https://example.com
+python -m webvulnpro paths https://example.com --wordlist custom.txt --max 1000
+```
+
+### <img src="https://api.iconify.design/lucide:list.svg?width=18" width="18" valign="middle"/> List Profiles
+
+```bash
+python -m webvulnpro profiles
+```
+
+---
+
+## <img src="https://api.iconify.design/lucide:sliders-horizontal.svg?color=%23e94560" width="22" height="22" valign="middle"/> Scan Profiles
+
+| Profile | Description | Headers | SSL | Paths | Vulns | Deep |
+|---------|-------------|:---:|:---:|:---:|:---:|:---:|
+| `quick` | Fast essential checks | ✅ | ✅ | – | – | – |
+| `standard` | Balanced scanning | ✅ | ✅ | ✅ | ✅ | – |
+| `comprehensive` | Full thorough scan | ✅ | ✅ | ✅ | ✅ | – |
+| `deep` | All modules + advanced | ✅ | ✅ | ✅ | ✅ | ✅ |
+| `passive` | Non-intrusive only | ✅ | ✅ | – | – | – |
+| `stealth` | Low-profile passive | ✅ | ✅ | – | – | – |
+| `api` | REST/GraphQL testing | ✅ | ✅ | ✅ | ✅ | Partial |
+| `cms` | CMS vulnerability scan | ✅ | ✅ | ✅ | ✅ | Partial |
+
+---
+
+## <img src="https://api.iconify.design/lucide:bug.svg?color=%23e94560" width="22" height="22" valign="middle"/> Vulnerability Coverage
+
+### <img src="https://api.iconify.design/lucide:file-cog.svg?width=18" width="18" valign="middle"/> HTTP Security Headers (25+ checks)
+
+- Strict-Transport-Security (HSTS)
+- Content-Security-Policy (CSP)
+- X-Frame-Options
+- X-Content-Type-Options
+- X-XSS-Protection
+- Referrer-Policy
+- Permissions-Policy
+- Cross-Origin-Embedder-Policy
+- Cross-Origin-Opener-Policy
+- Cross-Origin-Resource-Policy
+- Cookie Security (Secure, HttpOnly, SameSite)
+- Information Disclosure Headers
+
+### <img src="https://api.iconify.design/lucide:octagon-alert.svg?width=18" width="18" valign="middle"/> OWASP Top 10 Detection
+
+1. **XSS Reflection** — 50+ payloads for reflected XSS testing
+2. **SQL Injection** — Error-based detection for MySQL, PostgreSQL, MSSQL, Oracle, SQLite
+3. **Open Redirect** — Parameter-based redirect vulnerability testing
+4. **CSRF** — Token absence detection in forms
+5. **Sensitive Data Exposure** — API keys, credentials, private keys
+
+### <img src="https://api.iconify.design/lucide:badge-check.svg?width=18" width="18" valign="middle"/> SSL/TLS Assessment
+
+- Certificate expiry and validity
+- Hostname verification
+- Self-signed certificate detection
+- TLS protocol version checks (TLS 1.0/1.1 deprecation)
+- Cipher suite strength analysis
+- Key size validation
+
+### <img src="https://api.iconify.design/lucide:folder-open.svg?width=18" width="18" valign="middle"/> Path Enumeration
+
+- Git/SVN repository exposure
+- Environment files (.env, config.php)
+- Backup files (.bak, .old, ~)
+- Admin panels
+- Debug endpoints
+- API documentation
+- 500+ paths in default wordlist
+
+### <img src="https://api.iconify.design/lucide:cpu.svg?width=18" width="18" valign="middle"/> Technology Fingerprinting
+
+- **CMS**: WordPress, Drupal, Joomla, Magento, Shopify
+- **Frameworks**: Laravel, Django, Rails, ASP.NET, Spring, Express.js
+- **WAF/CDN**: Cloudflare, AWS WAF, ModSecurity, Akamai, Imperva, Sucuri, Fastly
+- **Servers**: Apache, Nginx, IIS
+
+---
+
+## <img src="https://api.iconify.design/lucide:layers.svg?color=%23e94560" width="22" height="22" valign="middle"/> Deep Scanning Modules
+
+### <img src="https://api.iconify.design/lucide:network.svg?width=18" width="18" valign="middle"/> Subdomain Enumeration
+- DNS brute-force with 500+ common subdomain prefixes
+- Certificate Transparency (CT) log lookup via crt.sh
+- Subdomain permutation generation
+- Subdomain takeover vulnerability detection
+
+### <img src="https://api.iconify.design/lucide:file-json-2.svg?width=18" width="18" valign="middle"/> JavaScript Analysis
+- Secret and API key extraction (AWS, Google, Stripe, etc.)
+- Endpoint discovery from fetch/axios calls
+- DOM-based XSS sink and source detection
+- JWT token exposure detection
+
+### <img src="https://api.iconify.design/lucide:globe-2.svg?width=18" width="18" valign="middle"/> CORS Testing
+- Wildcard origin testing
+- Origin reflection with credentials
+- Null origin exploitation
+- Subdomain-based CORS bypasses
+
+### <img src="https://api.iconify.design/lucide:layout-template.svg?width=18" width="18" valign="middle"/> CMS Vulnerability Scanning
+Specialized checks for:
+- **WordPress**: User enumeration, XML-RPC, debug logs, config backups
+- **Drupal**: Version disclosure, settings exposure
+- **Joomla**: Admin panel, configuration backups
+- **Laravel**: .env exposure, Telescope, Debugbar
+- **Django**: Debug mode, admin panel exposure
+
+---
+
+## <img src="https://api.iconify.design/lucide:file-output.svg?color=%23e94560" width="22" height="22" valign="middle"/> Output Formats
+
+### <img src="https://api.iconify.design/lucide:braces.svg?width=18" width="18" valign="middle"/> JSON Report
+
+```json
+{
+  "report_info": {
+    "generator": "WebVulnPro",
+    "version": "2.0.0",
+    "generated_at": "2026-01-27T20:24:00"
+  },
+  "summary": {
+    "targets_scanned": 1,
+    "total_vulnerabilities": 15,
+    "by_severity": {
+      "CRITICAL": 2,
+      "HIGH": 5,
+      "MEDIUM": 4,
+      "LOW": 3,
+      "INFO": 1
+    }
+  },
+  "scan_results": [...]
+}
+```
+
+### <img src="https://api.iconify.design/lucide:file-text.svg?width=18" width="18" valign="middle"/> PDF Report
+
+Professional enterprise-grade PDF with:
+- Executive summary
+- Risk score visualization
+- Findings table by severity
+- Detailed remediation guidance
+- Technology inventory
+
+### <img src="https://api.iconify.design/lucide:layout-dashboard.svg?width=18" width="18" valign="middle"/> HTML Report
+
+Interactive dashboard-style report with:
+- Severity distribution charts
+- Filterable findings table
+- Technology badges
+- Detailed finding cards
+
+---
+
+## <img src="https://api.iconify.design/lucide:code-2.svg?color=%23e94560" width="22" height="22" valign="middle"/> Programmatic Usage
+
+```python
+import asyncio
+from webvulnpro.core.scanner import WebVulnScanner, ScanManager
+from webvulnpro.core.models import ScanProfile
+from webvulnpro.core.reporter import ReportGenerator
+
+async def scan_target():
+    # Standard scan with profile
+    profile = ScanProfile.get_profile("comprehensive")
+    scanner = WebVulnScanner(profile=profile)
+    
+    # Scan target
+    result = await scanner.scan_target("https://example.com")
+    
+    # Print findings
+    for vuln in result.vulnerabilities:
+        print(f"[{vuln.severity}] {vuln.title}")
+    
+    # Generate report
+    reporter = ReportGenerator()
+    reporter.save_report([result], "report.pdf")
+
+async def deep_scan_target():
+    # Deep scan with all advanced modules
+    manager = ScanManager()
+    results = await manager.run_deep_scan(["https://example.com"])
+    
+    # Access metadata (subdomains, endpoints, etc.)
+    for result in results:
+        print(f"Target: {result.target}")
+        print(f"Vulnerabilities: {len(result.vulnerabilities)}")
+        print(f"Technologies: {[t.name for t in result.technologies]}")
+
+asyncio.run(scan_target())
+```
+
+---
+
+## <img src="https://api.iconify.design/lucide:list-ordered.svg?color=%23e94560" width="22" height="22" valign="middle"/> Custom Wordlists
+
+Create custom wordlists for path enumeration:
+
+```text
+# custom-paths.txt
+/admin/
+/api/v1/
+/backup/
+/.env
+/.git/config
+```
+
+Use with:
+
+```bash
+python -m webvulnpro paths https://example.com --wordlist custom-paths.txt
+```
+
+## <img src="https://api.iconify.design/lucide:file-signature.svg?color=%23e94560" width="22" height="22" valign="middle"/> Custom Signatures
+
+Extend vulnerability detection with custom signatures:
+
+```json
+{
+  "sql_errors": {
+    "CustomDB": [
+      "CustomDB.*Error",
+      "custom_db_exception"
+    ]
+  }
+}
+```
+
+Use with:
+
+```bash
+python -m webvulnpro scan https://example.com --signatures custom-sigs.json
+```
+
+---
+
+## <img src="https://api.iconify.design/lucide:log-out.svg?color=%23e94560" width="22" height="22" valign="middle"/> Exit Codes
+
+| Code | Meaning |
+|:---:|---|
+| `0` | Success, no critical/high findings |
+| `1` | High severity findings detected |
+| `2` | Critical severity findings detected |
+| `130` | Interrupted by user (Ctrl+C) |
+
+---
+
+## <img src="https://api.iconify.design/lucide:target.svg?color=%23e94560" width="22" height="22" valign="middle"/> Test Targets
+
+Validate against these intentionally vulnerable targets:
+
+```bash
+python -m webvulnpro scan https://scanme.nmap.org
+python -m webvulnpro scan http://testphp.vulnweb.com
+python -m webvulnpro scan https://demo.testfire.net
+```
+
+---
+
+## <img src="https://api.iconify.design/lucide:folder-tree.svg?color=%23e94560" width="22" height="22" valign="middle"/> Project Structure
+
+```
+webvulnpro/
+├── webvulnpro/
+│   ├── __init__.py
+│   ├── __main__.py
+│   ├── main.py
+│   ├── cli.py                  # Command-line interface
+│   ├── interactive.py          # Interactive TUI mode
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── models.py           # Data models and scan profiles
+│   │   ├── scanner.py          # Main scanner and ScanManager
+│   │   └── reporter.py         # Report generation (PDF/HTML/JSON)
+│   ├── scanners/
+│   │   ├── __init__.py
+│   │   ├── http_headers.py     # HTTP security headers scanner
+│   │   ├── ssl_checker.py      # SSL/TLS configuration scanner
+│   │   ├── vuln_patterns.py    # Vulnerability pattern detection
+│   │   ├── path_enum.py        # Path enumeration scanner
+│   │   └── deep_scanner.py     # Advanced deep scanning modules
+│   ├── signatures/
+│   │   ├── vuln_signatures.json
+│   │   └── technologies.json
+│   ├── wordlists/
+│   │   ├── paths.txt           # Path enumeration wordlist
+│   │   ├── xss_payloads.txt    # XSS testing payloads
+│   │   ├── subdomains.txt      # Subdomain enumeration wordlist
+│   │   └── parameters.txt      # Parameter discovery wordlist
+│   └── Reports/                # Organized scan reports
+│       └── <target>/
+│           └── report_<timestamp>.<format>
+├── tests/
+├── requirements.txt
+├── setup.py
+├── pyproject.toml
+└── README.md
+```
+
+---
+
+## <img src="https://api.iconify.design/lucide:clipboard-list.svg?color=%23e94560" width="22" height="22" valign="middle"/> Requirements
+
+- Python 3.9+
+- aiohttp
+- typer
+- rich
+- reportlab
+
+## <img src="https://api.iconify.design/lucide:git-pull-request.svg?color=%23e94560" width="22" height="22" valign="middle"/> Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run tests: `pytest`
+5. Submit a pull request
+
+## <img src="https://api.iconify.design/lucide:scale.svg?color=%23e94560" width="22" height="22" valign="middle"/> License
+
+MIT License - see LICENSE file for details.
+
+## <img src="https://api.iconify.design/lucide:triangle-alert.svg?color=%23f0a500" width="22" height="22" valign="middle"/> Disclaimer
+
+> This tool is for **authorized security testing only**. Always obtain proper authorization before scanning any systems. The authors are not responsible for misuse of this tool.
+
+## <img src="https://api.iconify.design/lucide:life-buoy.svg?color=%23e94560" width="22" height="22" valign="middle"/> Support
+
+- <img src="https://api.iconify.design/lucide:circle-dot.svg?width=14" width="14"/> Issues: [GitHub Issues](https://github.com/razzsecdev/webvulnpro/issues)
+- <img src="https://api.iconify.design/lucide:book-open.svg?width=14" width="14"/> Documentation: [Wiki](https://github.com/razzsecdev/webvulnpro/wiki)
+
+---
+
+<div align="center">
+
+**WebVulnPro v2.0.0** — Enterprise-grade web vulnerability assessment made simple.
+
+</div>
